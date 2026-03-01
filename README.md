@@ -6,7 +6,7 @@ Marketing website for **Vertipark**, a vertical rotary car parking solution laun
 
 - **GitHub:** [phsmartswb-ai/verticalparking](https://github.com/phsmartswb-ai/verticalparking)
 
-## Live / Demo
+## Run locally
 
 Open `vertipark-Main.html` in a browser (same folder as `styles.css` and `images/`). No build step or server required.
 
@@ -21,6 +21,13 @@ Or use any static file server:
 npx serve .
 # or: python3 -m http.server 8000
 ```
+
+## Deploy on Netlify
+
+1. Connect this repo to Netlify (GitHub → Netlify).
+2. **Build settings:** leave **Build command** empty; **Publish directory** = `.` (or leave default).
+3. The repo includes `netlify.toml` so the site **root** (`/`) serves `vertipark-Main.html` automatically.
+4. Deploy. Your site will be live at `https://your-site-name.netlify.app`.
 
 ## Project structure
 
