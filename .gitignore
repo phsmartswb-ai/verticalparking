@@ -1,0 +1,33 @@
+# OS
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Dependencies (if you add tooling later)
+node_modules/
+vendor/
+.env
+.env.local
+.env.*.local
+
+# Build / output (if you add a build step)
+dist/
+build/
+*.log
+.cache/
+
+# Optional: keep only main site if you want to ignore other HTML drafts
+# vertipark.html
+# vertipark (1).html
+# vertipark (2).html

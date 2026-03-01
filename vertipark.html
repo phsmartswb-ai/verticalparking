@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vertipark – Vertical Rotary Car Parking</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f3ee;
+    --accent: #e8ff00;
+    --steel: #1e2a38;
+    --muted: #8a8a7a;
+    --card: #131a22;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: var(--accent);
+  }
+  .logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color .3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent); color: var(--black);
+    padding: .6rem 1.6rem; border: none; cursor: pointer;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: .85rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: transform .2s;
+  }
+  .nav-cta:hover { transform: scale(1.05); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 7rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 70% 50%, rgba(232,255,0,0.06) 0%, transparent 70%);
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(232,255,0,0.12); border: 1px solid var(--accent);
+    color: var(--accent); font-size: .75rem; letter-spacing: 3px;
+    text-transform: uppercase; padding: .4rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(4rem, 8vw, 7.5rem);
+    line-height: .95;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title .line2 { color: var(--accent); display: block; }
+  .hero-sub {
+    font-size: 1.05rem; line-height: 1.7;
+    color: rgba(245,243,238,0.65);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: var(--black);
+    padding: .9rem 2.2rem; font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: .9rem; letter-spacing: 1px;
+    text-transform: uppercase; border: none; cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: transform .2s, box-shadow .2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,255,0,0.3); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    padding: .9rem 2.2rem; font-family: 'Syne', sans-serif;
+    font-weight: 600; font-size: .9rem; letter-spacing: 1px;
+    text-transform: uppercase; border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer; transition: border-color .2s, color .2s; text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+  }
+  .parking-tower {
+    width: 280px; height: 420px;
+    position: relative;
+  }
+  .tower-frame {
+    width: 100%; height: 100%;
+    border: 2px solid rgba(232,255,0,0.4);
+    position: relative; overflow: hidden;
+    background: linear-gradient(180deg, rgba(30,42,56,0.8) 0%, rgba(10,10,10,0.9) 100%);
+  }
+  .tower-levels {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: space-around;
+    padding: 10px 0;
+  }
+  .tower-level {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(232,255,0,0.3), transparent);
+  }
+  .car-slot {
+    position: absolute;
+    width: 60px; height: 28px;
+    border: 1px solid rgba(232,255,0,0.2);
+    background: rgba(232,255,0,0.04);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .car-slot.occupied { background: rgba(232,255,0,0.12); border-color: rgba(232,255,0,0.5); }
+  .car-icon { font-size: 1.1rem; }
+  /* positions */
+  .slot-1 { top: 8%; left: 15%; }
+  .slot-2 { top: 8%; right: 15%; }
+  .slot-3 { top: 24%; left: 15%; }
+  .slot-4 { top: 24%; right: 15%; }
+  .slot-5 { top: 40%; left: 15%; }
+  .slot-6 { top: 40%; right: 15%; }
+  .slot-7 { top: 56%; left: 15%; }
+  .slot-8 { top: 56%; right: 15%; }
+  .slot-9 { top: 72%; left: 15%; }
+  .slot-10 { top: 72%; right: 15%; }
+  /* rotating indicator */
+  .rotary-arm {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(232,255,0,0.6));
+    transform-origin: left center;
+    animation: rotate-arm 6s linear infinite;
+  }
+  @keyframes rotate-arm {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  .tower-glow {
+    position: absolute; inset: -20px;
+    background: radial-gradient(ellipse at center, rgba(232,255,0,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .tower-label {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1rem; letter-spacing: 5px;
+    color: var(--accent); opacity: 0.6;
+    text-align: center; margin-top: 1rem;
+  }
+  .hero-stats {
+    display: flex; gap: 2rem; margin-top: 3rem;
+  }
+  .stat-item { border-left: 2px solid var(--accent); padding-left: 1rem; }
+  .stat-num { font-family: 'Bebas Neue', cursive; font-size: 2rem; color: var(--accent); }
+  .stat-label { font-size: .75rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* SECTION */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: .75rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .75rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1; letter-spacing: 1px;
+  }
+  .section-desc {
+    font-size: 1rem; line-height: 1.8;
+    color: rgba(245,243,238,0.6); max-width: 600px; margin-top: 1rem;
+  }
+
+  /* PROBLEM SECTION */
+  .problem {
+    background: var(--steel);
+    position: relative; overflow: hidden;
+  }
+  .problem::after {
+    content: 'CHAOS';
+    position: absolute; right: -2rem; top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    font-family: 'Bebas Neue', cursive;
+    font-size: 14rem; color: rgba(255,255,255,0.02);
+    white-space: nowrap; pointer-events: none;
+  }
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center; margin-top: 3rem;
+  }
+  .problem-items { display: flex; flex-direction: column; gap: 1.5rem; }
+  .problem-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.2rem; background: rgba(0,0,0,0.3);
+    border-left: 3px solid rgba(232,255,0,0.4);
+    transition: border-color .3s;
+  }
+  .problem-item:hover { border-color: var(--accent); }
+  .problem-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .problem-text h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: .3rem; }
+  .problem-text p { font-size: .875rem; color: var(--muted); line-height: 1.6; }
+  .city-stat-box {
+    background: var(--black); padding: 2.5rem;
+    position: relative; overflow: hidden;
+  }
+  .city-stat-box::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+  }
+  .big-stat { font-family: 'Bebas Neue', cursive; font-size: 6rem; color: var(--accent); line-height: 1; }
+  .big-stat-desc { font-size: 1rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .city-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .city-tag {
+    background: rgba(232,255,0,0.1); border: 1px solid rgba(232,255,0,0.2);
+    color: var(--accent); padding: .35rem .9rem; font-size: .8rem;
+    letter-spacing: 1px; font-family: 'Syne', sans-serif;
+  }
+
+  /* HOW IT WORKS */
+  .how-it-works { background: var(--black); }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px; margin-top: 3rem;
+  }
+  .step-card {
+    background: var(--card); padding: 2rem 1.5rem;
+    position: relative; overflow: hidden;
+    transition: transform .3s;
+  }
+  .step-card:hover { transform: translateY(-4px); }
+  .step-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 0; background: rgba(232,255,0,0.06); transition: height .3s;
+  }
+  .step-card:hover::after { height: 100%; }
+  .step-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 4rem; color: rgba(232,255,0,0.12);
+    position: absolute; top: .5rem; right: 1rem;
+  }
+  .step-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .step-title { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: .75rem; }
+  .step-desc { font-size: .875rem; color: var(--muted); line-height: 1.7; }
+
+  /* PLANS */
+  .plans { background: var(--steel); }
+  .plans-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px; margin-top: 3rem;
+  }
+  .plan-card {
+    background: var(--card);
+    padding: 2.5rem 2rem;
+    position: relative; transition: transform .3s;
+  }
+  .plan-card.featured {
+    background: var(--accent); color: var(--black);
+    transform: scale(1.04);
+  }
+  .plan-card:not(.featured):hover { transform: translateY(-4px); }
+  .plan-duration {
+    font-family: 'Syne', sans-serif; font-size: .75rem;
+    font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .75rem;
+  }
+  .plan-card.featured .plan-duration { color: var(--black); opacity: .7; }
+  .plan-price {
+    font-family: 'Bebas Neue', cursive; font-size: 3.5rem;
+    line-height: 1; margin-bottom: .25rem;
+  }
+  .plan-price-sub { font-size: .8rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .plan-card.featured .plan-price-sub { color: rgba(0,0,0,0.6); }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: .6rem; margin-bottom: 2rem; }
+  .plan-features li {
+    font-size: .875rem; display: flex; align-items: center; gap: .5rem;
+    color: rgba(245,243,238,0.7);
+  }
+  .plan-card.featured .plan-features li { color: rgba(0,0,0,0.75); }
+  .plan-features li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+  .plan-card.featured .plan-features li::before { color: var(--black); }
+  .badge-popular {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--black); color: var(--accent);
+    font-size: .7rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; padding: .3rem 1rem;
+    border: 1px solid var(--accent);
+    white-space: nowrap;
+  }
+
+  /* FEATURES */
+  .features { background: var(--black); }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .feature-card {
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem; transition: border-color .3s, background .3s;
+  }
+  .feature-card:hover { border-color: rgba(232,255,0,0.3); background: rgba(232,255,0,0.03); }
+  .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .feature-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: .5rem; }
+  .feature-desc { font-size: .875rem; color: var(--muted); line-height: 1.7; }
+
+  /* LAND PARTNER */
+  .land-partner {
+    background: var(--accent); color: var(--black);
+    padding: 5rem 4rem;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: center; gap: 3rem;
+  }
+  .lp-label { font-size: .75rem; letter-spacing: 4px; text-transform: uppercase; opacity: .6; margin-bottom: .5rem; }
+  .lp-title { font-family: 'Bebas Neue', cursive; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; }
+  .lp-desc { font-size: 1rem; opacity: .75; margin-top: 1rem; max-width: 550px; line-height: 1.7; }
+  .lp-perks { display: flex; gap: 2rem; margin-top: 2rem; }
+  .lp-perk { display: flex; flex-direction: column; gap: .25rem; }
+  .lp-perk-num { font-family: 'Bebas Neue', cursive; font-size: 2.5rem; }
+  .lp-perk-label { font-size: .8rem; opacity: .65; }
+  .btn-dark {
+    background: var(--black); color: var(--accent);
+    padding: 1.1rem 2.5rem; font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: .9rem; letter-spacing: 1px;
+    text-transform: uppercase; border: none; cursor: pointer;
+    white-space: nowrap;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: transform .2s;
+  }
+  .btn-dark:hover { transform: scale(1.05); }
+
+  /* APP */
+  .app-section {
+    background: var(--steel); padding: 6rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .app-phone {
+    width: 260px; height: 480px;
+    background: var(--black);
+    border: 2px solid rgba(232,255,0,0.3);
+    border-radius: 32px;
+    position: relative; overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 0 80px rgba(232,255,0,0.08);
+  }
+  .phone-notch {
+    width: 100px; height: 28px;
+    background: var(--black);
+    border: 2px solid rgba(232,255,0,0.3);
+    border-radius: 0 0 20px 20px;
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    z-index: 2;
+  }
+  .phone-screen {
+    position: absolute; inset: 12px;
+    background: linear-gradient(160deg, #0d1822 0%, #0a0a0a 100%);
+    border-radius: 24px; padding: 2.5rem .75rem .75rem;
+    display: flex; flex-direction: column; gap: .5rem;
+  }
+  .phone-header {
+    font-family: 'Bebas Neue', cursive; font-size: 1.1rem;
+    color: var(--accent); letter-spacing: 2px; text-align: center; margin-bottom: .5rem;
+  }
+  .phone-status {
+    background: rgba(232,255,0,0.08); border: 1px solid rgba(232,255,0,0.2);
+    padding: .6rem; border-radius: 8px; text-align: center;
+    font-size: .7rem; color: var(--accent); letter-spacing: 1px;
+  }
+  .phone-car-card {
+    background: var(--card); border-radius: 8px; padding: .75rem;
+    border-left: 3px solid var(--accent);
+  }
+  .pcc-label { font-size: .65rem; color: var(--muted); }
+  .pcc-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .85rem; }
+  .phone-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; margin-top: auto; }
+  .phone-btn {
+    background: rgba(232,255,0,0.1); border: 1px solid rgba(232,255,0,0.2);
+    color: var(--accent); font-size: .65rem; letter-spacing: .5px;
+    text-transform: uppercase; padding: .5rem .3rem; text-align: center;
+    border-radius: 4px; font-family: 'Syne', sans-serif; font-weight: 700;
+  }
+  .phone-btn.active { background: var(--accent); color: var(--black); }
+  .app-content .section-label { color: var(--accent); }
+  .app-features { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
+  .app-feat {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem; background: rgba(0,0,0,0.4);
+    border-left: 3px solid rgba(232,255,0,0.3);
+    transition: border-color .3s;
+  }
+  .app-feat:hover { border-color: var(--accent); }
+  .app-feat-icon { font-size: 1.5rem; }
+  .app-feat-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: .9rem; margin-bottom: .2rem; }
+  .app-feat-desc { font-size: .8rem; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 4rem 4rem 2rem;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .footer-brand .logo { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+  .footer-brand p { font-size: .875rem; color: var(--muted); line-height: 1.7; max-width: 280px; }
+  .footer-col h5 {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: .8rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+  .footer-col ul li a {
+    font-size: .875rem; color: var(--muted); text-decoration: none; transition: color .2s;
+  }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: .8rem; color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    animation: fade-up .8s ease forwards;
+  }
+  @keyframes fade-up {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * { animation: fade-up .8s ease forwards; }
+  .hero-content > *:nth-child(1) { animation-delay: .1s; }
+  .hero-content > *:nth-child(2) { animation-delay: .25s; }
+  .hero-content > *:nth-child(3) { animation-delay: .4s; }
+  .hero-content > *:nth-child(4) { animation-delay: .55s; }
+  .hero-content > *:nth-child(5) { animation-delay: .7s; }
+  .hero-content > * { opacity: 0; }
+
+  /* TICKER */
+  .ticker {
+    background: var(--accent); color: var(--black);
+    overflow: hidden; white-space: nowrap; padding: .7rem 0;
+  }
+  .ticker-inner {
+    display: inline-flex; gap: 3rem;
+    animation: ticker-scroll 20s linear infinite;
+    font-family: 'Bebas Neue', cursive; font-size: 1rem; letter-spacing: 3px;
+  }
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+    .hero-visual { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .problem-grid, .app-section { grid-template-columns: 1fr; }
+    .steps-grid, .plans-grid, .features-grid { grid-template-columns: 1fr 1fr; }
+    .land-partner { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { flex-direction: column; gap: 1rem; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">VERTI<span>PARK</span></div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#plans">Plans</a></li>
+    <li><a href="#app">App</a></li>
+    <li><a href="#land">Partner</a></li>
+  </ul>
+  <button class="nav-cta">Book a Spot</button>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker" style="margin-top: 74px;">
+  <div class="ticker-inner">
+    <span>🅿 SECURE VERTICAL PARKING</span>
+    <span>⚡ RFID ENTRY & EXIT</span>
+    <span>📱 APP-CONTROLLED</span>
+    <span>🏙 BANGALORE · CHENNAI · DELHI</span>
+    <span>🔒 24/7 SECURITY & CCTV</span>
+    <span>🅿 SECURE VERTICAL PARKING</span>
+    <span>⚡ RFID ENTRY & EXIT</span>
+    <span>📱 APP-CONTROLLED</span>
+    <span>🏙 BANGALORE · CHENNAI · DELHI</span>
+    <span>🔒 24/7 SECURITY & CCTV</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-tag">India's Smartest Parking Solution</div>
+    <h1 class="hero-title">
+      PARK<br>
+      <span class="line2">SMARTER.</span>
+      LIVE BETTER.
+    </h1>
+    <p class="hero-sub">Vertipark transforms unused urban land into secure, automated vertical rotary parking systems — protecting your car from sun, rain, dust, theft and chaos.</p>
+    <div class="hero-btns">
+      <a href="#plans" class="btn-primary">View Plans</a>
+      <a href="#how" class="btn-outline">How It Works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Cars Per Tower</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Security</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">App Controlled</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div>
+      <div class="parking-tower">
+        <div class="tower-glow"></div>
+        <div class="tower-frame">
+          <div class="tower-levels">
+            <div class="tower-level"></div><div class="tower-level"></div>
+            <div class="tower-level"></div><div class="tower-level"></div>
+            <div class="tower-level"></div>
+          </div>
+          <div class="car-slot occupied slot-1"><span class="car-icon">🚗</span></div>
+          <div class="car-slot occupied slot-2"><span class="car-icon">🚙</span></div>
+          <div class="car-slot slot-3"><span class="car-icon" style="opacity:.3">🚗</span></div>
+          <div class="car-slot occupied slot-4"><span class="car-icon">🚗</span></div>
+          <div class="car-slot occupied slot-5"><span class="car-icon">🚙</span></div>
+          <div class="car-slot slot-6"><span class="car-icon" style="opacity:.3">🚗</span></div>
+          <div class="car-slot occupied slot-7"><span class="car-icon">🚗</span></div>
+          <div class="car-slot occupied slot-8"><span class="car-icon">🚗</span></div>
+          <div class="car-slot slot-9"><span class="car-icon" style="opacity:.3">🚙</span></div>
+          <div class="car-slot occupied slot-10"><span class="car-icon">🚗</span></div>
+          <div class="rotary-arm"></div>
+        </div>
+      </div>
+      <p class="tower-label">VERTIPARK TOWER — LIVE</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="section-label">The Urban Reality</div>
+  <h2 class="section-title">YOUR CAR DESERVES<br>BETTER THAN THIS.</h2>
+  <div class="problem-grid">
+    <div class="problem-items">
+      <div class="problem-item">
+        <div class="problem-icon">☀️</div>
+        <div class="problem-text">
+          <h4>Extreme Sun Damage</h4>
+          <p>UV radiation fades paint, cracks dashboards, and degrades tyres over time when parked outdoors.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">🌧️</div>
+        <div class="problem-text">
+          <h4>Rain & Waterlogging</h4>
+          <p>Monsoons cause water to seep into engines, rust underbodies, and damage electrical systems.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">🐀</div>
+        <div class="problem-text">
+          <h4>Rat & Pest Biting</h4>
+          <p>Wiring harnesses chewed by rodents cause costly repairs and electrical failures.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">🔓</div>
+        <div class="problem-text">
+          <h4>Theft & Vandalism</h4>
+          <p>Unguarded street parking makes vehicles easy targets for theft, scratches, and break-ins.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">👦</div>
+        <div class="problem-text">
+          <h4>Dents & Scratches</h4>
+          <p>Children playing, bikes leaning and careless passersby leave their mark on your vehicle daily.</p>
+        </div>
+      </div>
+    </div>
+    <div class="city-stat-box">
+      <div class="big-stat">72%</div>
+      <div class="big-stat-desc">of car owners in Indian metros report vehicle damage from outdoor parking within a year</div>
+      <p style="font-size:.875rem; color: var(--muted); line-height:1.7; margin-bottom:1.5rem;">Cities like Bengaluru, Chennai, Delhi and Mumbai are bursting at the seams. Parking is a daily nightmare. Unused land sits idle, taxed and wasted. <strong style="color:var(--white)">Vertipark changes all of that.</strong></p>
+      <div class="city-tags">
+        <span class="city-tag">Bengaluru</span>
+        <span class="city-tag">Chennai</span>
+        <span class="city-tag">Delhi</span>
+        <span class="city-tag">Mumbai</span>
+        <span class="city-tag">Hyderabad</span>
+        <span class="city-tag">Pune</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how">
+  <div class="section-label">The Process</div>
+  <h2 class="section-title">HOW VERTIPARK<br>WORKS.</h2>
+  <p class="section-desc">From unused land to your car's safest home — four simple steps that make smart parking effortless.</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon">🏗️</div>
+      <div class="step-title">We Lease Idle Land</div>
+      <div class="step-desc">We identify unused plots in prime urban zones, lease them from landowners on monthly or yearly agreements, and transform dead real estate into profitable, operational parking towers.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon">🌀</div>
+      <div class="step-title">Vertical Rotary System</div>
+      <div class="step-desc">Our automated rotary carousel system stacks up to 20+ cars vertically on a compact footprint — maximizing land usage by up to 10x compared to traditional parking lots.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon">📲</div>
+      <div class="step-title">RFID + App Entry</div>
+      <div class="step-desc">Each subscriber gets an RFID tag for hands-free access. The Vertipark app lets you request car pickup or drop-off in real time, track slot status and manage subscriptions.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-icon">🔒</div>
+      <div class="step-title">Park & Relax</div>
+      <div class="step-desc">24/7 CCTV surveillance and on-site security guards ensure your vehicle is always protected. Rain, sun, dust, rodents — none of it reaches your car inside our tower.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="plans" id="plans">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">FLEXIBLE PLANS<br>FOR EVERY DRIVER.</h2>
+  <p class="section-desc">Choose the plan that fits your schedule. All plans include RFID access, CCTV monitoring and 24/7 security.</p>
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-duration">Day Pass</div>
+      <div class="plan-price">₹199</div>
+      <div class="plan-price-sub">per day</div>
+      <ul class="plan-features">
+        <li>RFID gate access</li>
+        <li>CCTV monitoring</li>
+        <li>Security guard</li>
+        <li>App tracking</li>
+      </ul>
+      <button class="btn-outline" style="width:100%">Get Started</button>
+    </div>
+    <div class="plan-card">
+      <div class="plan-duration">Weekly</div>
+      <div class="plan-price">₹899</div>
+      <div class="plan-price-sub">per week</div>
+      <ul class="plan-features">
+        <li>All Day Pass features</li>
+        <li>Priority slot access</li>
+        <li>1 free pickup/drop</li>
+        <li>Email reports</li>
+      </ul>
+      <button class="btn-outline" style="width:100%">Get Started</button>
+    </div>
+    <div class="plan-card featured">
+      <div class="badge-popular">Most Popular</div>
+      <div class="plan-duration">Monthly</div>
+      <div class="plan-price">₹2,499</div>
+      <div class="plan-price-sub">per month · billed monthly</div>
+      <ul class="plan-features">
+        <li>All Weekly features</li>
+        <li>5 free pickup/drops</li>
+        <li>Premium slot reserved</li>
+        <li>App + RFID access</li>
+        <li>Insurance included</li>
+      </ul>
+      <button class="btn-dark" style="width:100%; clip-path:none;">Subscribe Now</button>
+    </div>
+    <div class="plan-card">
+      <div class="plan-duration">Quarterly</div>
+      <div class="plan-price">₹6,499</div>
+      <div class="plan-price-sub">per quarter · save 13%</div>
+      <ul class="plan-features">
+        <li>All Monthly features</li>
+        <li>15 free pickup/drops</li>
+        <li>Dedicated slot 24/7</li>
+        <li>Priority support</li>
+        <li>Insurance included</li>
+      </ul>
+      <button class="btn-outline" style="width:100%">Get Started</button>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-label">Why Vertipark</div>
+  <h2 class="section-title">EVERY FEATURE<br>BUILT FOR PEACE OF MIND.</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🔐</div>
+      <div class="feature-title">RFID Smart Entry & Exit</div>
+      <div class="feature-desc">No queues, no keys handed over. Your RFID tag is your access pass. Tap and drive in or out in seconds — fully automated and contactless.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📹</div>
+      <div class="feature-title">24/7 CCTV Surveillance</div>
+      <div class="feature-desc">Every corner of every Vertipark tower is covered by high-definition cameras monitored round the clock, with footage archived for 30 days.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👮</div>
+      <div class="feature-title">On-Site Security Guard</div>
+      <div class="feature-desc">A trained security professional is stationed at every Vertipark location during operational hours — a human layer of protection alongside our technology.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚗</div>
+      <div class="feature-title">Car Pickup & Drop Service</div>
+      <div class="feature-desc">Request your car to be brought to the gate — or park it without stepping in — through the Vertipark app. Available for monthly and quarterly subscribers.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <div class="feature-title">Vertipark Mobile App</div>
+      <div class="feature-desc">Manage your subscription, request pickups, check slot availability, get entry notifications, and view your vehicle's status — all from your smartphone.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌀</div>
+      <div class="feature-title">Rotary Vertical Mechanism</div>
+      <div class="feature-desc">Our state-of-the-art rotary carousel brings your car to ground level on demand. Zero ramps, zero slopes, zero manual effort — fully automated retrieval.</div>
+    </div>
+  </div>
+</section>
+
+<!-- APP -->
+<div class="app-section" id="app">
+  <div>
+    <div class="app-phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="phone-header">VERTIPARK</div>
+        <div class="phone-status">🟢 YOUR CAR IS SAFE · SLOT 7B</div>
+        <div class="phone-car-card">
+          <div class="pcc-label">VEHICLE</div>
+          <div class="pcc-val">KA 01 AB 1234 — Swift Dzire</div>
+        </div>
+        <div class="phone-car-card" style="margin-top:.2rem">
+          <div class="pcc-label">PLAN</div>
+          <div class="pcc-val">Monthly · Expires Mar 31</div>
+        </div>
+        <div class="phone-car-card" style="margin-top:.2rem">
+          <div class="pcc-label">LOCATION</div>
+          <div class="pcc-val">Koramangala Tower 2, Bengaluru</div>
+        </div>
+        <div class="phone-actions" style="margin-top:auto">
+          <div class="phone-btn active">🚗 Pickup</div>
+          <div class="phone-btn">🅿 Drop</div>
+          <div class="phone-btn">📋 History</div>
+          <div class="phone-btn">⚙️ Settings</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="app-content">
+    <div class="section-label">The Vertipark App</div>
+    <h2 class="section-title">YOUR PARKING.<br>YOUR CONTROL.</h2>
+    <p class="section-desc">The Vertipark app puts complete control of your parking experience at your fingertips — anytime, anywhere.</p>
+    <div class="app-features">
+      <div class="app-feat">
+        <div class="app-feat-icon">🔔</div>
+        <div>
+          <div class="app-feat-title">Real-time Notifications</div>
+          <div class="app-feat-desc">Get alerts when your car is picked up, dropped, or when your subscription is about to renew.</div>
+        </div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">🗺️</div>
+        <div>
+          <div class="app-feat-title">Find Nearest Tower</div>
+          <div class="app-feat-desc">Locate available Vertipark towers near you and check real-time slot availability before you drive.</div>
+        </div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">💳</div>
+        <div>
+          <div class="app-feat-title">Seamless Payments</div>
+          <div class="app-feat-desc">Pay via UPI, card, or wallet. Auto-renew subscriptions or pay for a day pass — all in the app.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LAND PARTNER -->
+<div class="land-partner" id="land">
+  <div>
+    <div class="lp-label">For Landowners</div>
+    <h2 class="lp-title">GOT IDLE LAND?<br>TURN IT INTO INCOME.</h2>
+    <p class="lp-desc">If you own land in any Indian city that's sitting unused — being misused as a dumping ground while you pay property tax — Vertipark can lease it from you and convert it into a revenue-generating parking tower.</p>
+    <div class="lp-perks">
+      <div class="lp-perk">
+        <div class="lp-perk-num">₹₹</div>
+        <div class="lp-perk-label">Steady Monthly Income</div>
+      </div>
+      <div class="lp-perk">
+        <div class="lp-perk-num">0</div>
+        <div class="lp-perk-label">Effort from Your Side</div>
+      </div>
+      <div class="lp-perk">
+        <div class="lp-perk-num">✓</div>
+        <div class="lp-perk-label">Legal Agreement</div>
+      </div>
+    </div>
+  </div>
+  <button class="btn-dark">Partner With Us</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo">VERTI<span>PARK</span></span>
+      <p>India's smart vertical rotary parking network — built on unused urban land, powered by technology, designed to give your car the protection it deserves.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">Day Parking</a></li>
+        <li><a href="#">Weekly Plans</a></li>
+        <li><a href="#">Monthly Plans</a></li>
+        <li><a href="#">Quarterly Plans</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="#">hello@vertipark.in</a></li>
+        <li><a href="#">+91 98765 43210</a></li>
+        <li><a href="#">Bengaluru HQ</a></li>
+        <li><a href="#">Partner With Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Vertipark Technologies Pvt. Ltd. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service · Refund Policy</span>
+  </div>
+</footer>
+
+</body>
+</html>
