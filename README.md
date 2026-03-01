@@ -55,4 +55,4 @@ npx serve .
 
 ## License
 
-See [LICENSE](LICENSE) in this repository.
+This project is **proprietary**. All rights reserved. It is not free to use. See [LICENSE](LICENSE) for full terms.
