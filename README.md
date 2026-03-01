@@ -2,6 +2,10 @@
 
 Marketing website for **Vertipark**, a vertical rotary car parking solution launching in Bengaluru. Built with vanilla HTML, CSS, and JavaScript.
 
+## Repository
+
+- **GitHub:** [phsmartswb-ai/verticalparking](https://github.com/phsmartswb-ai/verticalparking)
+
 ## Live / Demo
 
 Open `vertipark-Main.html` in a browser (same folder as `styles.css` and `images/`). No build step or server required.
@@ -17,10 +21,6 @@ Or use any static file server:
 npx serve .
 # or: python3 -m http.server 8000
 ```
-
-## Repository
-
-- **GitHub:** [phsmartswb-ai/verticalparking](https://github.com/phsmartswb-ai/verticalparking)
 
 ## Project structure
 
