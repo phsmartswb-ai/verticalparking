@@ -67,6 +67,32 @@ nav {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.launching-badge {
+  font-family: 'Syne', sans-serif;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(232, 255, 0, 0.08);
+  border: 1px solid rgba(232, 255, 0, 0.3);
+  padding: .4rem .9rem;
+  border-radius: 20px;
+  animation: blinkGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(232, 255, 0, 0.2);
+}
+
+@keyframes blinkGlow {
+  0%, 100% {
+    opacity: 0.6;
+    box-shadow: 0 0 8px rgba(232, 255, 0, 0.2), inset 0 0 4px rgba(232, 255, 0, 0.1);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 16px rgba(232, 255, 0, 0.5), inset 0 0 8px rgba(232, 255, 0, 0.3);
+  }
+}
+
 .logo {
   font-family: 'Bebas Neue', cursive;
   font-size: 2rem;
@@ -2287,6 +2313,78 @@ footer {
   color: var(--accent);
 }
 
+/* WHATSAPP BUTTON */
+.whatsapp-button {
+  position: fixed;
+  bottom: 5.5rem;
+  right: 1.5rem;
+  width: 60px;
+  height: 60px;
+  border: none;
+  background: #25D366;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: all .3s ease;
+  box-shadow: 0 4px 24px rgba(37, 211, 102, 0.4);
+  text-decoration: none;
+  padding: 0;
+  line-height: 0;
+}
+
+.whatsapp-button:hover {
+  box-shadow: 0 6px 32px rgba(37, 211, 102, 0.6);
+  transform: scale(1.12) translateY(-2px);
+  background: #20ba5c;
+}
+
+.whatsapp-button:focus {
+  outline: 3px solid rgba(37, 211, 102, 0.5);
+  outline-offset: 2px;
+}
+
+.whatsapp-button:active {
+  transform: scale(0.95);
+}
+
+/* WHATSAPP TOOLTIP */
+.whatsapp-tooltip {
+  position: fixed;
+  bottom: 9.2rem;
+  right: 1.5rem;
+  background: rgba(37, 211, 102, 0.95);
+  color: white;
+  padding: .6rem 1.2rem;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  z-index: 99;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.5);
+  animation: tooltipPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes tooltipPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
 /* BACK TO TOP */
 .back-to-top {
   position: fixed;
@@ -2746,3 +2844,4 @@ footer {
   .cookie-consent .cookie-accept {
     width: 100%;
   }
+}
