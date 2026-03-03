@@ -3,6 +3,7 @@
 
 [build]
   publish = "."
+  functions = "netlify/functions"
   # No build command – static HTML/CSS/JS only
 
 # Serve the main page at the site root (no index.html in repo)
