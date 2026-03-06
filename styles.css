@@ -29,6 +29,9 @@ body {
   max-width: 100vw;
 }
 
+.display-none {
+  display: none;
+}
 
 .skip-link {
   position: absolute;
@@ -2239,6 +2242,95 @@ section {
   gap: .4rem;
 }
 
+/* SECURITY CARD HOVER EFFECT */
+.security-card {
+  cursor: pointer;
+}
+
+.security-card:hover {
+  transform: translateY(-8px);
+  background: rgba(0,229,160,0.12) !important;
+  border-color: rgba(0,229,160,0.4) !important;
+  box-shadow: 0 12px 30px rgba(0,229,160,0.1);
+}
+
+/* COMPARISON CARD HOVER & LIFT EFFECT */
+.comparison-card {
+  cursor: pointer;
+  transform: translateZ(0);
+}
+
+.comparison-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(232,255,0,0.15);
+}
+
+/* MICRO-INTERACTIONS - BUTTON IMPROVEMENTS */
+button, a.btn-primary, a.btn-outline, a.btn-dark {
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative;
+  overflow: hidden;
+}
+
+button:active, a.btn-primary:active, a.btn-outline:active, a.btn-dark:active {
+  transform: scale(0.98);
+}
+
+/* BUTTON HOVER WITH LIFT */
+a.btn-primary:hover, a.btn-dark:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(232,255,0,0.3);
+}
+
+a.btn-outline:hover {
+  transform: translateY(-2px);
+  background: rgba(232,255,0,0.08);
+}
+
+/* INPUT FIELD MICRO-INTERACTIONS */
+input, select {
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+  box-shadow: 0 0 0 3px rgba(232,255,0,0.2);
+  border-color: var(--accent);
+  outline: none;
+}
+
+/* STAT COUNTER ANIMATION */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-num {
+  animation: countUp 0.6s ease-out;
+}
+
+/* TABLE ROW HOVER */
+table tbody tr:hover {
+  background: rgba(232,255,0,0.04) !important;
+}
+
+/* LAZY LOAD IMAGE PLACEHOLDER/SHIMMER */
+img[loading="lazy"] {
+  background: linear-gradient(90deg, var(--steel) 25%, rgba(232,255,0,0.05) 50%, var(--steel) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* FOOTER */
 footer {
   background: var(--black);
@@ -2843,5 +2935,94 @@ footer {
 
   .cookie-consent .cookie-accept {
     width: 100%;
+  }
+
+  /* NEW SECTIONS MOBILE RESPONSIVENESS */
+  
+  /* Security Cards Mobile */
+  .security-card {
+    padding: 1.5rem !important;
+  }
+  
+  .security-card h3 {
+    font-size: 1rem !important;
+  }
+  
+  .security-card p {
+    font-size: 0.85rem;
+  }
+  
+  /* Comparison Cards Mobile */
+  .comparison-card {
+    padding: 1.5rem !important;
+  }
+  
+  .comparison-card h3 {
+    font-size: 1rem !important;
+  }
+  
+  .comparison-card p {
+    font-size: 0.85rem;
+  }
+  
+  .comparison-card div[style*="font-size:3rem"] {
+    font-size: 2rem !important;
+  }
+  
+  /* Pricing Calculator Mobile */
+  #calc-zone, #calc-duration {
+    font-size: 0.9rem !important;
+    padding: 0.65rem !important;
+  }
+  
+  #calc-plan {
+    font-size: 2rem !important;
+  }
+  
+  #calc-details {
+    font-size: 0.85rem !important;
+  }
+  
+  /* Comparison Table Mobile */
+  table {
+    font-size: 0.8rem !important;
+  }
+  
+  table th, table td {
+    padding: 0.6rem 0.4rem !important;
+  }
+  
+  table th {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* ULTRA SMALL DEVICES (< 375px) */
+@media(max-width:375px) {
+  /* Reduce padding on new sections */
+  section[style*="padding:4rem 2rem"] {
+    padding: 2rem 1rem !important;
+  }
+  
+  .section-title {
+    font-size: clamp(1.5rem, 8vw, 2.5rem) !important;
+  }
+  
+  /* Calculator inputs full width */
+  #calc-zone, #calc-duration {
+    font-size: 0.85rem !important;
+    padding: 0.6rem !important;
+  }
+  
+  /* Reduce icon sizes */
+  .security-card > div[style*="font-size:2.5rem"],
+  .comparison-card > div[style*="font-size:3rem"] {
+    font-size: 2rem !important;
+  }
+  
+  /* Tighter table spacing */
+  table th, table td {
+    padding: 0.5rem 0.25rem !important;
+    font-size: 0.7rem !important;
   }
 }
