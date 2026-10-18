@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertipark — Pricing Analysis</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: #2a2a3a;
+      --accent: #00e5a0;
+      --accent2: #ff6b35;
+      --accent3: #5b8fff;
+      --warn: #ffb800;
+      --danger: #ff4545;
+      --text: #e8e8f0;
+      --muted: #7a7a9a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    .header {
+      padding: 36px 0 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: -1px;
+      color: var(--accent);
+    }
+
+    .logo span {
+      color: var(--text);
+    }
+
+    .badge {
+      background: rgba(0, 229, 160, .1);
+      color: var(--accent);
+      border: 1px solid rgba(0, 229, 160, .3);
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      padding: 36px 0 6px;
+      color: var(--text);
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      padding-bottom: 32px;
+      max-width: 640px;
+    }
+
+    .sec-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 28px 0 14px;
+    }
+
+    .sec-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      background: rgba(0, 229, 160, .08);
+      border: 1px solid rgba(0, 229, 160, .2);
+      border-radius: 6px;
+      padding: 2px 8px;
+    }
+
+    .sec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.4px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .g2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .g3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .g4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: .4;
+    }
+
+    .card.co::before {
+      background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+    }
+
+    .card.cb::before {
+      background: linear-gradient(90deg, transparent, var(--accent3), transparent);
+    }
+
+    .card.cw::before {
+      background: linear-gradient(90deg, transparent, var(--warn), transparent);
+    }
+
+    .card.cd::before {
+      background: linear-gradient(90deg, transparent, var(--danger), transparent);
+    }
+
+    .clabel {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .ctitle {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .bnum {
+      font-family: 'DM Mono', monospace;
+      font-size: 34px;
+      font-weight: 500;
+      line-height: 1;
+      color: var(--accent);
+    }
+
+    .bnum.o {
+      color: var(--accent2);
+    }
+
+    .bnum.b {
+      color: var(--accent3);
+    }
+
+    .bnum.w {
+      color: var(--warn);
+    }
+
+    .bnum.d {
+      color: var(--danger);
+    }
+
+    .blabel {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 5px;
+    }
+
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tbl th {
+      text-align: left;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tbl td {
+      padding: 9px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+      font-size: 12px;
+    }
+
+    .tbl tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tbl .tr td {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      color: var(--accent2);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      font-size: 13px;
+    }
+
+    .num {
+      text-align: right;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .g {
+      color: var(--accent) !important;
+    }
+
+    .r {
+      color: var(--danger) !important;
+    }
+
+    .o {
+      color: var(--accent2) !important;
+    }
+
+    .y {
+      color: var(--warn) !important;
+    }
+
+    .b {
+      color: var(--accent3) !important;
+    }
+
+    .plan {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .plan.hl {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, #16161f, #0d2620);
+    }
+
+    .ptag {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .tg {
+      background: rgba(0, 229, 160, .15);
+      color: var(--accent);
+      border: 1px solid rgba(0, 229, 160, .3);
+    }
+
+    .to {
+      background: rgba(255, 107, 53, .15);
+      color: var(--accent2);
+      border: 1px solid rgba(255, 107, 53, .3);
+    }
+
+    .tb {
+      background: rgba(91, 143, 255, .15);
+      color: var(--accent3);
+      border: 1px solid rgba(91, 143, 255, .3);
+    }
+
+    .ty {
+      background: rgba(255, 184, 0, .15);
+      color: var(--warn);
+      border: 1px solid rgba(255, 184, 0, .3);
+    }
+
+    .pname {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .pold {
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: line-through;
+      margin-bottom: 12px;
+    }
+
+    .prec {
+      font-family: 'DM Mono', monospace;
+      font-size: 26px;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .prec.o {
+      color: var(--accent2);
+    }
+
+    .prec.b {
+      color: var(--accent3);
+    }
+
+    .prec.y {
+      color: var(--warn);
+    }
+
+    .punit {
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 14px;
+    }
+
+    .mbar {
+      height: 5px;
+      background: var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 6px 0 4px;
+    }
+
+    .mfill {
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--accent3), var(--accent));
+    }
+
+    .mfill.d {
+      background: linear-gradient(90deg, var(--danger), var(--warn));
+    }
+
+    .mfill.w {
+      background: linear-gradient(90deg, var(--warn), #ffdd00);
+    }
+
+    .mlabel {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+    }
+
+    .br {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+      font-size: 12px;
+    }
+
+    .br:last-child {
+      border-bottom: none;
+    }
+
+    .brl {
+      color: var(--muted);
+    }
+
+    .alert {
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .ag {
+      background: rgba(0, 229, 160, .07);
+      border: 1px solid rgba(0, 229, 160, .25);
+    }
+
+    .ao {
+      background: rgba(255, 107, 53, .07);
+      border: 1px solid rgba(255, 107, 53, .25);
+    }
+
+    .ay {
+      background: rgba(255, 184, 0, .07);
+      border: 1px solid rgba(255, 184, 0, .25);
+    }
+
+    .ab {
+      background: rgba(91, 143, 255, .07);
+      border: 1px solid rgba(91, 143, 255, .25);
+    }
+
+    .ai {
+      font-size: 16px;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .at {
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .ati {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .tl-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .tl-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .tl-c {
+      flex: 1;
+    }
+
+    .tl-t {
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .tl-d {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 0 0;
+    }
+
+    .foot {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 10px;
+      font-family: 'DM Mono', monospace;
+      line-height: 1.9;
+    }
+
+    @media(max-width:700px) {
+
+      .g2,
+      .g3,
+      .g4 {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="header">
+      <div class="logo">VERTI<span>PARK</span></div>
+      <div class="badge">PRICING ANALYSIS · BENGALURU 2026</div>
+    </div>
+
+    <h1>Pricing & Profitability<br>Master Analysis</h1>
+    <p class="subtitle">Full cost-structure breakdown, break-even modelling & recommended pricing — based on real
+      Bengaluru market data. All figures in INR.</p>
+
+    <!-- S1: COSTS -->
+    <div class="sec-header"><span class="sec-num">01</span><span class="sec-title">Cost Structure — Per Tower, Per
+        Month</span></div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="clabel">Capital Costs (Amortised over 30 months)</div>
+        <div class="ctitle">Tower CAPEX → Monthly Load</div>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th class="num">Total (₹)</th>
+              <th class="num">Monthly (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rotary system — 12 cars @ ₹4L avg</td>
+              <td class="num">48,00,000</td>
+              <td class="num o">13,333</td>
+            </tr>
+            <tr>
+              <td>Civil, fencing, weatherproofing</td>
+              <td class="num">6,00,000</td>
+              <td class="num o">1,667</td>
+            </tr>
+            <tr>
+              <td>CCTV + electrical + app infra</td>
+              <td class="num">3,00,000</td>
+              <td class="num o">833</td>
+            </tr>
+            <tr>
+              <td>RFID system + installation</td>
+              <td class="num">1,50,000</td>
+              <td class="num o">417</td>
+            </tr>
+            <tr class="tr">
+              <td colspan="2">Total CAPEX ÷ 30 months</td>
+              <td class="num">16,250</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">* At 60-month amortisation = ₹8,125/mo. Tower lasts 10–15 years — profitability jumps massively
+          after CAPEX is paid off.</p>
+      </div>
+      <div class="card co">
+        <div class="clabel">Monthly Operating Costs (OPEX)</div>
+        <div class="ctitle">Fixed Monthly Expenses</div>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th class="num">Per Month (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Land lease (150 sqm, mid zone Bengaluru)</td>
+              <td class="num o">25,000</td>
+            </tr>
+            <tr>
+              <td>Security guard (1 full-time)</td>
+              <td class="num o">18,000</td>
+            </tr>
+            <tr>
+              <td>Electricity (~900 units @ ₹8)</td>
+              <td class="num o">7,200</td>
+            </tr>
+            <tr>
+              <td>App / tech platform maintenance</td>
+              <td class="num o">4,000</td>
+            </tr>
+            <tr>
+              <td>Mechanical maintenance + spares</td>
+              <td class="num o">5,000</td>
+            </tr>
+            <tr>
+              <td>Vehicle + liability insurance</td>
+              <td class="num o">3,000</td>
+            </tr>
+            <tr>
+              <td>Admin + support + misc</td>
+              <td class="num o">3,500</td>
+            </tr>
+            <tr class="tr">
+              <td>Total Monthly OPEX</td>
+              <td class="num">65,700</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid g4">
+      <div class="card">
+        <div class="clabel">Total Monthly Cost</div>
+        <div class="bnum o">₹81,950</div>
+        <div class="blabel">OPEX + CAPEX/month (12-slot tower)</div>
+      </div>
+      <div class="card cw">
+        <div class="clabel">Break-Even / Slot (100% fill)</div>
+        <div class="bnum w">₹6,829</div>
+        <div class="blabel">Per slot/month at 12 slots, 100% occupancy</div>
+      </div>
+      <div class="card cb">
+        <div class="clabel">Break-Even / Slot (80% fill)</div>
+        <div class="bnum b">₹8,536</div>
+        <div class="blabel">Per slot/month at realistic 80% occupancy</div>
+      </div>
+      <div class="card">
+        <div class="clabel">Your Old Monthly Price</div>
+        <div class="bnum d">₹2,499</div>
+        <div class="blabel">Was ₹4,330 BELOW break-even. Heavy losses.</div>
+      </div>
+    </div>
+
+    <!-- S2: MARKET -->
+    <div class="sec-header"><span class="sec-num">02</span><span class="sec-title">Bengaluru Parking Market
+        Benchmarks</span></div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="clabel">Open / Informal Parking</div>
+        <div class="bnum">₹2,000</div>
+        <div class="blabel">avg/month — your lowest competitor</div>
+        <p class="note" style="margin-top:10px;">Street/informal lots. No security, no cover, no tech. This is the
+          bottom of the market. You must price well above this.</p>
+      </div>
+      <div class="card">
+        <div class="clabel">Covered / Stilt Parking</div>
+        <div class="bnum">₹3,500</div>
+        <div class="blabel">avg/month — sublet apartment parking</div>
+        <p class="note" style="margin-top:10px;">Basic cover, minimal security, zero tech. Prime zones (Koramangala,
+          Indiranagar) charge ₹4,000–5,000. <strong style="color:var(--text)">This is your main benchmark.</strong></p>
+      </div>
+      <div class="card cb">
+        <div class="clabel">Organised Secure (Mall / Tech Park)</div>
+        <div class="bnum b">₹4,500–6,000</div>
+        <div class="blabel">avg/month — direct competition tier</div>
+        <p class="note" style="margin-top:10px;">Manyata, Bagmane, UB City lots. CCTV, staff, receipts. Vertipark offers
+          MORE than this. You must price at or above this bracket.</p>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <div class="clabel">Why You Can Charge More Than Market</div>
+        <div class="ctitle">Vertipark's Premium Value Stack</div>
+        <div class="alert ag">
+          <div class="ai">🌀</div>
+          <div class="at">
+            <div class="ati">Full weatherproofing — unique in Bengaluru</div>No other parking lifts the car off ground +
+            seals it. Monsoon protection alone = ₹500–1,000/month value to car owners.
+          </div>
+        </div>
+        <div class="alert ag">
+          <div class="ai">📱</div>
+          <div class="at">
+            <div class="ati">App + RFID + Pickup service</div>Tech-first experience commands 30–40% premium over basic
+            covered parking. Nothing like it exists locally.
+          </div>
+        </div>
+        <div class="alert ag">
+          <div class="ai">🔒</div>
+          <div class="at">
+            <div class="ati">Vehicle insurance bundled — no one else does this</div>Monthly/quarterly subscribers get
+            damage coverage inside the facility. This alone justifies ₹500–800 premium over any competitor.
+          </div>
+        </div>
+      </div>
+      <div class="card co">
+        <div class="clabel">Problems With Your Current Pricing</div>
+        <div class="ctitle">What Must Change Immediately</div>
+        <div class="alert ao">
+          <div class="ai">❌</div>
+          <div class="at">
+            <div class="ati">Day Pass ₹199 — Losing Money</div>Break-even per slot per day = ₹227. At ₹199 you lose ₹28
+            per slot per day even at 100% fill. One empty slot = bigger loss.
+          </div>
+        </div>
+        <div class="alert ay">
+          <div class="ai">⚠️</div>
+          <div class="at">
+            <div class="ati">Weekly ₹899 — Below Cost</div>₹899/week = ₹3,596/month equivalent. Break-even is
+            ₹6,829/slot/month. You're at 53% of break-even. Fatal.
+          </div>
+        </div>
+        <div class="alert ao">
+          <div class="ai">❌</div>
+          <div class="at">
+            <div class="ati">Monthly ₹2,499 — Deeply Negative</div>Break-even is ₹6,829. At ₹2,499 you lose ₹4,330 per
+            slot per month. 12 slots = ₹51,960 monthly loss just on margin gap.
+          </div>
+        </div>
+        <div class="alert ay">
+          <div class="ai">⚠️</div>
+          <div class="at">
+            <div class="ati">Quarterly ₹6,499 — Below Cost Too</div>₹6,499 ÷ 3 = ₹2,166/month equivalent. Even worse
+            than monthly. Must be ₹9,999+.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S3: RECOMMENDED PRICING -->
+    <div class="sec-header"><span class="sec-num">03</span><span class="sec-title">Recommended Pricing — Zero Negative
+        Margins</span></div>
+    <div class="grid g4">
+      <div class="plan">
+        <span class="ptag to">Day Pass</span>
+        <div class="pname">Daily</div>
+        <div class="pold">Was ₹199/day</div>
+        <div class="prec o">₹299</div>
+        <div class="punit">per day · non-subscriber</div>
+        <div class="mbar">
+          <div class="mfill w" style="width:52%"></div>
+        </div>
+        <div class="mlabel"><span>Margin</span><span class="y">~28% at 85% fill</span></div>
+        <div style="margin-top:12px;">
+          <div class="br"><span class="brl">Cost/slot/day</span><span class="o">₹227</span></div>
+          <div class="br"><span class="brl">Revenue</span><span class="g">₹299</span></div>
+          <div class="br"><span class="brl">Net/slot/day</span><span class="g">+₹72</span></div>
+        </div>
+        <p class="note">⚠️ High-risk plan. Restrict to max 2 slots per tower. Variable occupancy kills margin. Use only
+          as walk-in/trial product.</p>
+      </div>
+
+      <div class="plan">
+        <span class="ptag ty">Weekly</span>
+        <div class="pname">Weekly</div>
+        <div class="pold">Was ₹899/week</div>
+        <div class="prec y">₹1,599</div>
+        <div class="punit">per week · 4 weeks = ₹6,396/mo</div>
+        <div class="mbar">
+          <div class="mfill" style="width:35%"></div>
+        </div>
+        <div class="mlabel"><span>Margin</span><span class="g">~6% (thin but positive)</span></div>
+        <div style="margin-top:12px;">
+          <div class="br"><span class="brl">Cost/slot/week</span><span class="y">₹1,585</span></div>
+          <div class="br"><span class="brl">Revenue</span><span class="g">₹1,599</span></div>
+          <div class="br"><span class="brl">Net/slot/week</span><span class="g">+₹14</span></div>
+        </div>
+        <p class="note">⚠️ Thin margin — use as trial-to-monthly funnel only. Cap at 2 slots. Actively upsell to
+          monthly.</p>
+      </div>
+
+      <div class="plan hl">
+        <span class="ptag tg">⭐ HERO PLAN</span>
+        <div class="pname">Monthly</div>
+        <div class="pold">Was "from ₹2,499"</div>
+        <div class="prec">₹3,499</div>
+        <div class="punit">standard zones · ₹4,499–5,499 premium zones</div>
+        <div class="mbar">
+          <div class="mfill" style="width:75%"></div>
+        </div>
+        <div class="mlabel"><span>Margin</span><span class="g">~48% at standard / 65% at premium</span></div>
+        <div style="margin-top:12px;">
+          <div class="br"><span class="brl">Break-even/slot</span><span>₹6,829</span></div>
+          <div class="br"><span class="brl">2-slot contrib.</span><span class="g">₹6,998</span></div>
+          <div class="br"><span class="brl">Net vs break-even</span><span class="g">+₹169/slot pair</span></div>
+        </div>
+        <p class="note">✅ Best volume driver. Still BELOW Bengaluru covered parking avg (₹3,500) with 5× more value.
+          Will convert fast.</p>
+      </div>
+
+      <div class="plan">
+        <span class="ptag tb">Quarterly</span>
+        <div class="pname">Quarterly</div>
+        <div class="pold">Was ₹6,499/quarter</div>
+        <div class="prec b">₹9,999</div>
+        <div class="punit">standard · ₹12,999 premium zones</div>
+        <div class="mbar">
+          <div class="mfill" style="width:65%"></div>
+        </div>
+        <div class="mlabel"><span>Margin</span><span class="b">~49% (same as monthly)</span></div>
+        <div style="margin-top:12px;">
+          <div class="br"><span class="brl">Monthly equiv.</span><span class="b">₹3,333</span></div>
+          <div class="br"><span class="brl">vs Monthly plan</span><span class="g">Save ₹166/mo</span></div>
+          <div class="br"><span class="brl">Upfront cashflow</span><span class="g">+₹9,999 upfront</span></div>
+        </div>
+        <p class="note">✅ Cashflow positive for you. Position as "save ₹500 vs monthly." Improves retention + working
+          capital.</p>
+      </div>
+    </div>
+
+    <!-- S4: ZONE PRICING -->
+    <div class="sec-header"><span class="sec-num">04</span><span class="sec-title">Zone-Based Monthly Pricing by
+        Area</span></div>
+    <div class="grid">
+      <div class="card">
+        <div class="clabel">Recommended Monthly Price by Bengaluru Zone</div>
+        <div class="ctitle">One price doesn't fit all — land costs vary massively by location</div>
+        <table class="tbl" style="margin-top:8px;">
+          <thead>
+            <tr>
+              <th>Zone / Area</th>
+              <th>Typical Land Cost</th>
+              <th class="num">Recommended Monthly</th>
+              <th class="num">Recommended Quarterly</th>
+              <th class="num">Net Margin (90% fill)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Premium</strong> — Koramangala, Indiranagar, MG Road, UB City</td>
+              <td>₹30,000–40,000/mo</td>
+              <td class="num g">₹5,499</td>
+              <td class="num g">₹14,999</td>
+              <td class="num g">~55%</td>
+            </tr>
+            <tr>
+              <td><strong>High</strong> — Whitefield, Marathahalli, HSR Layout, Bellandur</td>
+              <td>₹22,000–30,000/mo</td>
+              <td class="num g">₹4,499</td>
+              <td class="num g">₹11,999</td>
+              <td class="num g">~48%</td>
+            </tr>
+            <tr>
+              <td><strong>Mid</strong> — Jayanagar, Bannerghatta Rd, JP Nagar, RT Nagar</td>
+              <td>₹15,000–22,000/mo</td>
+              <td class="num y">₹3,999</td>
+              <td class="num y">₹10,999</td>
+              <td class="num y">~38%</td>
+            </tr>
+            <tr>
+              <td><strong>Standard</strong> — Yeshwantpur, Peenya, Hebbal, Vijayanagar</td>
+              <td>₹10,000–15,000/mo</td>
+              <td class="num y">₹3,499</td>
+              <td class="num y">₹9,499</td>
+              <td class="num y">~28%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- S5: P&L SIM -->
+    <div class="sec-header"><span class="sec-num">05</span><span class="sec-title">Monthly P&L Simulation — Per
+        Tower</span></div>
+    <div class="grid g3">
+      <div class="card cd">
+        <div class="clabel">❌ Old Pricing — 85% Occupancy</div>
+        <div class="ctitle">12 Slots, Mixed Plans</div>
+        <div class="br"><span class="brl">8× Monthly @ ₹2,499</span><span class="r">₹19,992</span></div>
+        <div class="br"><span class="brl">2× Quarterly (÷3) @ ₹2,166</span><span class="r">₹4,332</span></div>
+        <div class="br"><span class="brl">1× Weekly × 4 @ ₹899</span><span class="r">₹3,596</span></div>
+        <div class="br"><span class="brl">1× Day Pass × 25 @ ₹199</span><span class="r">₹4,975</span></div>
+        <div class="br" style="margin-top:8px;"><span><strong>Total Revenue</strong></span><span
+            class="r"><strong>₹32,895</strong></span></div>
+        <div class="br"><span class="brl">Total Cost</span><span class="r">−₹81,950</span></div>
+        <div
+          style="margin-top:10px;padding:10px;background:rgba(255,69,69,.1);border:1px solid rgba(255,69,69,.3);border-radius:8px;font-family:'DM Mono',monospace;font-size:13px;text-align:center;color:var(--danger);">
+          NET LOSS: −₹49,055/mo</div>
+      </div>
+
+      <div class="card cw">
+        <div class="clabel">⚠️ New Pricing — 80% Occupancy</div>
+        <div class="ctitle">12 Slots, Mixed Plans</div>
+        <div class="br"><span class="brl">7× Monthly @ ₹3,499</span><span class="g">₹24,493</span></div>
+        <div class="br"><span class="brl">2× Quarterly (÷3) @ ₹3,333</span><span class="g">₹6,666</span></div>
+        <div class="br"><span class="brl">1× Weekly × 4 @ ₹1,599</span><span class="y">₹6,396</span></div>
+        <div class="br"><span class="brl">2× Day Pass × 20 @ ₹299</span><span class="b">₹11,960</span></div>
+        <div class="br" style="margin-top:8px;"><span><strong>Total Revenue</strong></span><span
+            class="g"><strong>₹49,515</strong></span></div>
+        <div class="br"><span class="brl">Total Cost</span><span class="r">−₹81,950</span></div>
+        <div
+          style="margin-top:10px;padding:10px;background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.3);border-radius:8px;font-family:'DM Mono',monospace;font-size:13px;text-align:center;color:var(--warn);">
+          NET: −₹32,435/mo (still building)</div>
+      </div>
+
+      <div class="card" style="background:linear-gradient(135deg,#16161f,#0d2620);border-color:var(--accent);">
+        <div class="clabel">✅ Premium Zone — 90% Fill Target</div>
+        <div class="ctitle">Premium Pricing + Corporate Slots</div>
+        <div class="br"><span class="brl">4× Corporate @ ₹5,499</span><span class="g">₹21,996</span></div>
+        <div class="br"><span class="brl">5× Monthly @ ₹4,499</span><span class="g">₹22,495</span></div>
+        <div class="br"><span class="brl">2× Quarterly (÷3) @ ₹4,333</span><span class="g">₹8,666</span></div>
+        <div class="br"><span class="brl">1× Day Pass × 25 @ ₹299</span><span class="b">₹7,475</span></div>
+        <div class="br" style="margin-top:8px;"><span><strong>Total Revenue</strong></span><span
+            class="g"><strong>₹60,632</strong></span></div>
+        <div class="br"><span class="brl">Total Cost (premium land ~₹35K)</span><span class="r">−₹91,950</span></div>
+        <div
+          style="margin-top:10px;padding:10px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.3);border-radius:8px;font-family:'DM Mono',monospace;font-size:13px;text-align:center;color:var(--accent);">
+          NET: −₹31,318/mo → profitable after yr 2.5</div>
+      </div>
+    </div>
+
+    <!-- KEY INSIGHT -->
+    <div class="grid">
+      <div class="card" style="background:linear-gradient(135deg,#0d1520,#111820);border-color:var(--accent3);">
+        <div class="clabel">The Honest Math — What Makes Vertipark Actually Profitable</div>
+        <div class="ctitle" style="color:var(--accent3);">The Tower Economics Are Long-Game. Here's The Path.</div>
+        <div class="grid g3" style="margin-top:12px;">
+          <div>
+            <div class="alert ab">
+              <div class="ai">💡</div>
+              <div class="at">
+                <div class="ati">Year 1–2.5: Cash-flow negative on CAPEX</div>The ₹58.5L tower investment takes 2.5–3
+                years to pay back. This is normal infrastructure. Airlines, hotels, car parks all work this way. Plan
+                for this.
+              </div>
+            </div>
+            <div class="alert ag">
+              <div class="ai">📈</div>
+              <div class="at">
+                <div class="ati">Year 3+ : 60–70% margin</div>Once CAPEX is retired, your monthly cost drops from
+                ₹81,950 to ~₹65,700. At ₹4,499 avg × 11 slots = ₹49,489 revenue vs ₹65,700 cost. Add day passes →
+                profitable.
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="alert ag">
+              <div class="ai">🏢</div>
+              <div class="at">
+                <div class="ati">Corporate fleet = your fastest path to profit</div>One corporate client (IT park,
+                hospital, hotel) booking 4–6 slots at ₹4,499–5,499/slot = ₹18,000–33,000/month guaranteed. This covers
+                your entire land + guard cost from a single client.
+              </div>
+            </div>
+            <div class="alert ay">
+              <div class="ai">🎯</div>
+              <div class="at">
+                <div class="ati">Pre-bookings before launch = survival</div>Don't open a tower below 70% pre-committed.
+                Every idle slot in Month 1 is a direct cash drain. Sell before you build.
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="alert ao">
+              <div class="ai">🗺️</div>
+              <div class="at">
+                <div class="ati">Start in premium zones only</div>Your first 2–3 towers must be in Koramangala,
+                Indiranagar, or Whitefield. Higher land cost, yes — but customers who will pay ₹4,499–5,499 and where
+                demand is proven. Don't start in cheaper zones first.
+              </div>
+            </div>
+            <div class="alert ab">
+              <div class="ai">📊</div>
+              <div class="at">
+                <div class="ati">16-slot towers change the math</div>If your system supports 16 cars, same land +
+                slightly higher CAPEX but 33% more revenue slots. Break-even per slot drops to ~₹5,750. Pursue 16-slot
+                configurations where possible.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S6: FINAL TABLE -->
+    <div class="sec-header"><span class="sec-num">06</span><span class="sec-title">Final Pricing — What to Publish on
+        Your Website</span></div>
+    <div class="grid">
+      <div class="card">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th class="num">Old (Wrong)</th>
+              <th class="num">New Recommended</th>
+              <th class="num">Margin Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Day Pass</strong></td>
+              <td class="num r">₹199</td>
+              <td class="num g">₹299–349</td>
+              <td class="num y">25–35% (at 85% fill)</td>
+              <td>Limit to 2 slots max. Walk-in only.</td>
+            </tr>
+            <tr>
+              <td><strong>Weekly</strong></td>
+              <td class="num r">₹899</td>
+              <td class="num g">₹1,599</td>
+              <td class="num y">5–8% (thin)</td>
+              <td>Trial plan only. Upsell hard to monthly.</td>
+            </tr>
+            <tr>
+              <td><strong>Monthly — Standard Zone</strong></td>
+              <td class="num r">₹2,499</td>
+              <td class="num g">₹3,499</td>
+              <td class="num g">~28–48%</td>
+              <td>Anchor plan. Below covered parking market rate. Strong sell.</td>
+            </tr>
+            <tr>
+              <td><strong>Monthly — Premium Zone</strong></td>
+              <td class="num r">Not listed</td>
+              <td class="num g">₹4,499–5,499</td>
+              <td class="num g">~48–65%</td>
+              <td>Koramangala, Indiranagar, MG Road. Must be separate pricing page.</td>
+            </tr>
+            <tr>
+              <td><strong>Quarterly — Standard</strong></td>
+              <td class="num r">₹6,499</td>
+              <td class="num g">₹9,999</td>
+              <td class="num g">~48%</td>
+              <td>"Save ₹500 vs monthly." Cashflow benefit to you.</td>
+            </tr>
+            <tr>
+              <td><strong>Quarterly — Premium</strong></td>
+              <td class="num r">Not listed</td>
+              <td class="num g">₹12,999</td>
+              <td class="num g">~50%</td>
+              <td>Same structure. ₹4,333/mo equiv.</td>
+            </tr>
+            <tr>
+              <td><strong>Corporate / Fleet (per slot)</strong></td>
+              <td class="num r">Not offered</td>
+              <td class="num g">₹4,499–5,999</td>
+              <td class="num g">55–65%</td>
+              <td>ADD THIS PLAN. Highest priority. Bulk slots, guaranteed revenue.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- S7: ACTIONS -->
+    <div class="sec-header"><span class="sec-num">07</span><span class="sec-title">7 Immediate Actions</span></div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="clabel">Website Changes</div>
+        <div class="ctitle">Do These Right Now</div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--danger)"></div>
+          <div class="tl-c">
+            <div class="tl-t">Remove "Starting from ₹2,499"</div>
+            <div class="tl-d">This anchors expectations dangerously low. Change to "Starting from ₹3,499." This one
+              change is the most important.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--warn)"></div>
+          <div class="tl-c">
+            <div class="tl-t">Change Day Pass to ₹299, Weekly to ₹1,599</div>
+            <div class="tl-d">Both are below cost right now. Update immediately before you get any enquiries at the
+              wrong price.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--accent3)"></div>
+          <div class="tl-c">
+            <div class="tl-t">Add zone-based pricing on the Plans page</div>
+            <div class="tl-d">Show "from ₹3,499" with a note that exact price is location-based. Add a zone pricing
+              dropdown or table.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--accent)"></div>
+          <div class="tl-c">
+            <div class="tl-t">Add a Corporate / Fleet Plan section</div>
+            <div class="tl-d">This is your fastest route to profitability. Add it to the Plans section and contact form.
+              Target IT parks, hospitals, hotels near each tower.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card co">
+        <div class="clabel">Business Strategy</div>
+        <div class="ctitle">What Determines Your Survival</div>
+        <div class="alert ag">
+          <div class="ai">1</div>
+          <div class="at">
+            <div class="ati">Pre-sell 70%+ slots before tower goes live</div>Launch only with committed subscribers.
+            Early access campaign is perfect for this — use your contact form as pre-commitment intake.
+          </div>
+        </div>
+        <div class="alert ab">
+          <div class="ai">2</div>
+          <div class="at">
+            <div class="ati">First 2 towers in Koramangala or Indiranagar only</div>Demand is proven, customers can pay
+            premium prices, and word-of-mouth is fastest in dense neighborhoods. Prove the model here first.
+          </div>
+        </div>
+        <div class="alert ay">
+          <div class="ai">3</div>
+          <div class="at">
+            <div class="ati">Target corporates parallel to consumer launch</div>Cold approach to IT parks and co-working
+            hubs within 1km of your tower. One corporate = 4–6 slots = ₹18–33K/month locked revenue.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">
+      SOURCES & ASSUMPTIONS · Land lease: ₹10,000–40,000/month for 150 sqm commercial land across Bengaluru zones
+      (99acres.com, MagicBricks 2025 listings). System cost: ₹3.5–6L/car slot based on vertical rotary parking supplier
+      quotes, India market 2024–25. Covered parking benchmark: ₹2,000–3,500/month informal, ₹4,500–6,000 organised lots
+      (NoBroker, Housing.com, field research 2025). Security guard: ₹18,000/month Bengaluru average. Electricity: 900
+      units × ₹8/unit. All analysis assumes 12-slot single tower unless stated. CAPEX amortisation: 30 months
+      (aggressive planning scenario) and 60 months (conservative). Profitability improves dramatically after CAPEX
+      retirement — tower lifespan is 10–15 years. · Prepared: March 2026.
+    </div>
+
+  </div>
+</body>
+
+</html>

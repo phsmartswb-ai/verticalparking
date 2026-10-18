@@ -1,21 +1,10 @@
-import { Component } from '@angular/core';
-
-const TICKER_ITEMS = [
-  '🅿 SECURE VERTICAL PARKING',
-  '⚡ RFID ENTRY & EXIT',
-  '📱 APP-CONTROLLED',
-  '📍 LAUNCHING IN BANGALORE',
-  '🔒 24/7 SECURITY & CCTV',
-  '🚀 BE FIRST IN BENGALURU',
-];
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-ticker',
   standalone: true,
-  imports: [],
   templateUrl: './ticker.component.html',
   styleUrl: './ticker.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
-export class TickerComponent {
-  protected readonly items = TICKER_ITEMS;
-}
+export class TickerComponent {}
