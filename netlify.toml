@@ -9,6 +9,11 @@
   NODE_VERSION = "22.12.0"
   NPM_VERSION = "11.6.2"
 
+# Override any site-level Functions directory setting. This project currently
+# has no serverless functions, but Netlify still validates the configured path.
+[functions]
+  directory = "netlify/functions"
+
 # Let Angular Router handle direct visits and browser refreshes for every route.
 [[redirects]]
   from = "/*"
