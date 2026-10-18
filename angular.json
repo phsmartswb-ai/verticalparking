@@ -50,15 +50,9 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-              {
-                "glob": "**/*",
-                "input": "images",
-                "output": "images"
               }
             ],
             "styles": [
-              "styles.css",
               "src/styles.scss"
             ]
           },

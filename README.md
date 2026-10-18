@@ -118,7 +118,7 @@ Vertipark/
 │   ├── main.ts                     # Application bootstrap
 │   └── styles.scss                 # Global theme and shared styles
 ├── angular.json                    # Angular build, assets, styles, and budgets
-├── netlify.toml                    # Existing static-site hosting configuration
+├── netlify.toml                    # Angular build and SPA hosting configuration
 ├── package.json                    # Dependencies and npm scripts
 └── tsconfig*.json                  # TypeScript configurations
 ```
@@ -149,7 +149,7 @@ npm run build
 
 Deploy the contents of `dist/vertipark/browser/` to a static host and configure unmatched requests to fall back to `index.html` so Angular routes continue to work when opened directly.
 
-The checked-in `netlify.toml` still targets the legacy root-level static HTML version (`vertipark-Main.html`). Update its publish directory and SPA redirect rules before using it for the Angular production bundle.
+Netlify is configured by `netlify.toml` to install Node.js 22.12.0 with npm 11.6.2, run `npm run build`, publish the Angular browser bundle, and rewrite unmatched requests to `index.html` for client-side routing.
 
 ## Updating the README preview
 
