@@ -1,0 +1,167 @@
+.sidenav-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.sidenav {
+  width: 280px;
+  border-right: none;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.45);
+  background: #0a0a0a;
+  color: #f5f3ee;
+}
+
+.sidenav-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(232, 255, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.75rem;
+  letter-spacing: 2px;
+  color: #f5f3ee;
+  text-decoration: none;
+
+  span {
+    color: #e8ff00;
+  }
+}
+
+.close-btn {
+  color: #f5f3ee;
+}
+
+.nav-list {
+  padding: 1rem 0;
+}
+
+.nav-list a {
+  color: rgba(245, 243, 238, 0.85);
+
+  &.active {
+    color: #e8ff00;
+    font-weight: 600;
+    background: rgba(232, 255, 0, 0.06);
+  }
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0.75rem 1.5rem;
+}
+
+.nav-list a.cta {
+  margin: 0 1.5rem;
+  color: #e8ff00;
+  font-weight: 700;
+  background: none !important;
+  justify-content: flex-start;
+}
+
+.shell-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  background: #0a0a0a;
+  border-bottom: 1px solid rgba(232, 255, 0, 0.1);
+  color: #f5f3ee;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.75rem;
+  letter-spacing: 2px;
+  color: #f5f3ee;
+  text-decoration: none;
+
+  span {
+    color: #e8ff00;
+  }
+}
+
+.launching-badge {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #e8ff00;
+  margin-top: 3px;
+}
+
+.nav-links {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-links li a {
+  color: rgba(245, 243, 238, 0.8);
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  &:hover {
+    color: #e8ff00;
+  }
+}
+
+.nav-toggle {
+  color: #f5f3ee;
+}
+
+.nav-cta {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  background: #e8ff00 !important;
+  color: #0a0a0a !important;
+  border-radius: 6px !important;
+
+  &:hover {
+    background: #d4ff00 !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  mat-sidenav {
+    display: none !important;
+  }
+}
+
+@media (max-width: 899px) {
+  .nav-links {
+    display: none;
+  }
+}

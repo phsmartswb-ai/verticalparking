@@ -1,0 +1,21 @@
+<div class="landowner-ba" id="before-after">
+  <div class="section-label">The Transformation</div>
+  <h2 class="section-title">BEFORE &amp; AFTER<br>VERTIPARK.</h2>
+  <div class="ba-grid">
+    @for (pair of pairs; track pair.label) {
+      <div class="ba-card" [class.before]="pair.label === 'BEFORE'" [class.after]="pair.label === 'AFTER'" [attr.data-label]="pair.label">
+        <img class="ba-img" [src]="pair.img" [alt]="pair.imgAlt" loading="lazy" />
+        <div class="ba-img-overlay"></div>
+        <div class="ba-content">
+          <div class="ba-icon">{{ pair.icon }}</div>
+          <div class="ba-title">{{ pair.title }}</div>
+          <ul class="ba-points">
+            @for (point of pair.points; track point) {
+              <li><span class="ba-dot"></span>{{ point }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="lp-benefits" id="benefits">
+  <div class="section-label">Landowner Benefits</div>
+  <h2 class="section-title">WHY PARTNERING WITH<br>VERTIPARK MAKES SENSE.</h2>
+  <p class="section-desc">
+    Six compelling reasons why landowners across India's major cities are choosing Vertipark.
+  </p>
+  <div class="benefits-grid">
+    @for (item of items; track item.title) {
+      <div class="benefit-card">
+        <div class="benefit-num">{{ item.num }}</div>
+        <div class="benefit-icon">{{ item.icon }}</div>
+        <div class="benefit-title">{{ item.title }}</div>
+        <div class="benefit-desc">{{ item.desc }}</div>
+      </div>
+    }
+  </div>
+</div>

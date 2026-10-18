@@ -1,0 +1,48 @@
+<section class="legal-section" id="legal">
+  <div class="section-label">Legal</div>
+  <h2 class="section-title">PRIVACY POLICY &amp;<br>TERMS OF SERVICE.</h2>
+  <p class="legal-updated">Last updated: January 2026 · Vertipark Technologies Private Limited</p>
+
+  <mat-tab-group [selectedIndex]="tabIndex()" (selectedIndexChange)="onTabChange($event)">
+    <mat-tab label="Privacy Policy">
+      <div class="legal-content">
+        @for (block of activePanel().blocks; track block.heading) {
+          <div class="legal-block">
+            <h3>{{ block.heading }}</h3>
+            @if (block.listItems) {
+              <ul>
+                @for (item of block.listItems; track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            } @else {
+              @for (p of block.paragraphs; track p) {
+                <p [innerHTML]="p"></p>
+              }
+            }
+          </div>
+        }
+      </div>
+    </mat-tab>
+    <mat-tab label="Terms &amp; Conditions">
+      <div class="legal-content">
+        @for (block of this.legal.panels()[1].blocks; track block.heading) {
+          <div class="legal-block">
+            <h3>{{ block.heading }}</h3>
+            @if (block.listItems) {
+              <ul>
+                @for (item of block.listItems; track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            } @else {
+              @for (p of block.paragraphs; track p) {
+                <p [innerHTML]="p"></p>
+              }
+            }
+          </div>
+        }
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</section>

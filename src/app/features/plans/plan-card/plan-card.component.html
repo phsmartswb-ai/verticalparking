@@ -1,0 +1,18 @@
+<mat-card class="plan-card" [class.featured]="plan().featured" [class.popular]="plan().badge">
+  @if (plan().badge) {
+    <div class="badge-popular">{{ plan().badge }}</div>
+  }
+  <div class="plan-duration">{{ plan().duration }}</div>
+  <div class="plan-price" [style.font-size]="plan().priceLarge ? '2rem' : ''" [style.line-height]="plan().priceLarge ? '1.1' : ''">
+    {{ plan().price }}
+  </div>
+  <div class="plan-price-sub">{{ plan().priceSub }}</div>
+  <ul class="plan-features">
+    @for (feature of plan().features; track feature.text) {
+      <li [class.hidden]="feature.hidden">{{ feature.text }}</li>
+    }
+  </ul>
+  <button mat-button [class.btn-outline]="plan().buttonVariant === 'outline'" [class.btn-dark]="plan().buttonVariant === 'dark'" class="plan-cta">
+    {{ plan().buttonLabel }}
+  </button>
+</mat-card>

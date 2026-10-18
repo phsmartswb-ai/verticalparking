@@ -1,0 +1,43 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav="matSidenav" mode="over" class="sidenav" [opened]="opened()" (closedChange)="closeMenu()">
+    <mat-toolbar class="sidenav-header">
+      <div class="logo">VERTI<span>PARK</span></div>
+      <button mat-icon-button class="close-btn" aria-label="Close menu" (click)="closeMenu()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-nav-list class="nav-list">
+      @for (link of links; track link.label) {
+        <a mat-list-item routerLinkActive="active" (click)="goTo(link.anchor)">
+          <span mat-line>{{ link.label }}</span>
+        </a>
+      }
+      <div class="divider"></div>
+      <a mat-list-item class="cta" (click)="goTo('contact')">Book a Spot</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <nav class="shell-nav">
+      <a href="#" class="logo" (click)="goTo('hero')">VERTI<span>PARK</span></a>
+      <span class="launching-badge">🚀 Launching Soon</span>
+
+        <button
+          mat-icon-button
+          class="nav-toggle"
+          aria-label="Open menu"
+          [attr.aria-expanded]="nav.opened()"
+          (click)="toggleMenu()">
+        <mat-icon>{{ opened() ? 'close' : 'menu' }}</mat-icon>
+      </button>
+
+      <ul class="nav-links">
+        @for (link of links; track link.label) {
+          <li><a (click)="goTo(link.anchor)">{{ link.label }}</a></li>
+        }
+      </ul>
+
+      <button mat-button class="nav-cta" (click)="goTo('contact')">Book a Spot</button>
+    </nav>
+  </mat-sidenav-content>
+</mat-sidenav-container>

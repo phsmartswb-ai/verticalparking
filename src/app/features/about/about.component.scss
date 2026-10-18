@@ -1,0 +1,90 @@
+.about {
+  padding: 5rem 1.5rem;
+  color: #f5f3ee;
+}
+
+.about-grid {
+  max-width: 1100px;
+  margin: 2rem auto 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.about-body p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(245, 243, 238, 0.85);
+  margin: 0 0 1.25rem;
+}
+
+.about-values {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.value-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.value-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.value-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  color: #f5f3ee;
+}
+
+.value-desc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(245, 243, 238, 0.75);
+  margin: 0;
+}
+
+.about-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.about-stat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.about-stat-num {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2rem;
+  color: #e8ff00;
+  line-height: 1;
+  margin: 0 0 0.35rem;
+}
+
+.about-stat-label {
+  font-size: 0.8rem;
+  color: rgba(245, 243, 238, 0.75);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (min-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr 340px;
+    align-items: start;
+  }
+  .about {
+    padding: 6rem 4%;
+  }
+}

@@ -1,0 +1,11 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="isExpanded()">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ item().question }}</mat-panel-title>
+      <mat-panel-description>
+        @if (isExpanded()) { <span class="arrow">−</span> } @else { <span class="arrow">+</span> }
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p class="faq-answer">{{ item().answer }}</p>
+  </mat-expansion-panel>
+</mat-accordion>

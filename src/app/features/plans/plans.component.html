@@ -1,0 +1,15 @@
+<section class="plans" id="plans" style="background: #1e2a38">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">FLEXIBLE PLANS<br>FOR EVERY DRIVER.</h2>
+  <p class="section-desc">
+    Starting from <strong style="color: #e8ff00">₹3,499+ / month</strong> — choose a plan that fits your schedule. All
+    plans include RFID access, CCTV monitoring and 24/7 security.
+  </p>
+  <div class="plans-grid">
+    @for (plan of plans; track plan.id) {
+      <app-plan-card [plan]="plan"></app-plan-card>
+    }
+  </div>
+
+  <app-zone-table></app-zone-table>
+</section>

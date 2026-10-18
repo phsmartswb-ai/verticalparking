@@ -1,0 +1,18 @@
+.plans {
+  padding: 4rem 1.5rem;
+  color: #f5f3ee;
+}
+
+.plans-grid {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .plans {
+    padding: 5rem 4%;
+  }
+}

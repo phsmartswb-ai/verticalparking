@@ -1,0 +1,32 @@
+<section class="calculator" id="calculator" style="background: #1e2a38">
+  <div class="section-label">Smart Planning</div>
+  <h2 class="section-title">FIND YOUR PERFECT PLAN</h2>
+  <div class="calc-card">
+    <div class="calc-group">
+      <label class="calc-label">Your Zone in Bengaluru</label>
+      <mat-select class="calc-select" [value]="selectedZone()" (selectionChange)="selectedZone.set($event.value); recalc()">
+        @for (zone of pricing.zones(); track zone.value) {
+          <mat-option [value]="zone.value">{{ zone.label }}</mat-option>
+        }
+      </mat-select>
+    </div>
+    <div class="calc-group">
+      <label class="calc-label">How long do you need parking?</label>
+      <mat-select class="calc-select" [value]="selectedDuration()" (selectionChange)="selectedDuration.set($event.value); recalc()">
+        @for (dur of pricing.durations(); track dur.value) {
+          <mat-option [value]="dur.value">{{ dur.label }}</mat-option>
+        }
+      </mat-select>
+    </div>
+    <div class="calc-result">
+      <div class="result-label">Your Best Plan</div>
+      <div class="result-plan">{{ quote().plan }}</div>
+      <div class="result-details">{{ quote().details }}</div>
+      <a href="#contact" class="btn-link" (click)="$event.preventDefault(); scroll.scrollTo('contact')">Get This Plan</a>
+    </div>
+    <div class="calc-tip">
+      💡 <strong style="color: #5b8fff">Pro tip:</strong> Monthly plans offer best value for regular commuters.
+      Quarterly adds flexibility with 13% savings.
+    </div>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+<section class="features" style="background: #0a0a0a">
+  <div class="section-label">Why Vertipark</div>
+  <h2 class="section-title">EVERY FEATURE BUILT<br>FOR PEACE OF MIND.</h2>
+  <div class="features-grid">
+    @for (item of items; track item.title) {
+      <div class="feature-card">
+        <div class="feature-icon">{{ item.icon }}</div>
+        <div class="feature-title">{{ item.title }}</div>
+        <div class="feature-desc">{{ item.desc }}</div>
+      </div>
+    }
+  </div>
+</section>

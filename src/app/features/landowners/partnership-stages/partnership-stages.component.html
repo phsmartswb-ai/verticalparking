@@ -1,0 +1,23 @@
+<div class="partnership" id="partnership-stages">
+  <div class="section-label">Partnership Process</div>
+  <h2 class="section-title">HOW THE PARTNERSHIP<br>WORKS — STEP BY STEP.</h2>
+  <p class="section-desc">
+    From your first inquiry to your first lease payment — transparent, simple, and predictable.
+  </p>
+  <div class="stages-container">
+    <div class="stages-line"></div>
+    <div class="stages-grid">
+      @for (stage of stages; track stage.num) {
+        <div class="stage-item">
+          <div class="stage-circle">
+            <span class="stage-icon">{{ stage.icon }}</span>
+            <div class="stage-num">{{ stage.num }}</div>
+          </div>
+          <div class="stage-title">{{ stage.title }}</div>
+          <div class="stage-desc">{{ stage.desc }}</div>
+          <span class="stage-timeframe">{{ stage.timeframe }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</div>

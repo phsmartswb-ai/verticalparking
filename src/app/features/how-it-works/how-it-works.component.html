@@ -1,0 +1,100 @@
+<section class="hiw-section" id="how">
+  <div class="hiw-header">
+    <div>
+      <div class="section-label">The Process</div>
+      <h2 class="section-title">HOW<br>VERTIPARK<br>WORKS.</h2>
+    </div>
+    <div class="hiw-header-right">
+      <div class="hiw-pill"><span class="hiw-pill-dot"></span> Live System — Bengaluru</div>
+      <p class="hiw-summary">
+        From a neglected urban plot to your car's most secure home — four stages of smart infrastructure, technology
+        and service that change how Bengaluru parks forever.
+      </p>
+    </div>
+  </div>
+
+  <div class="hiw-layout">
+    <div class="hiw-timeline">
+      <div class="hiw-track"></div>
+      <div class="hiw-steps">
+        @for (step of steps; track step.num) {
+          <app-hiw-step [step]="step"></app-hiw-step>
+        }
+      </div>
+    </div>
+
+    <div class="hiw-visual-panel">
+      <div class="hiw-visual-box">
+        <div class="hiw-visual-title">Live Tower Preview</div>
+        <div class="mini-tower">
+          <div class="mini-slots">
+            <div class="mini-slot occ">🚗</div>
+            <div class="mini-slot occ">🚙</div>
+            <div class="mini-slot">·</div>
+            <div class="mini-slot occ">🚗</div>
+            <div class="mini-slot occ">🚙</div>
+            <div class="mini-slot occ">🚗</div>
+            <div class="mini-slot occ">🚗</div>
+            <div class="mini-slot">·</div>
+            <div class="mini-slot occ">🚙</div>
+            <div class="mini-slot">·</div>
+            <div class="mini-slot occ">🚗</div>
+            <div class="mini-slot occ">🚗</div>
+          </div>
+          <div class="mini-arm"></div>
+        </div>
+        <div class="mini-readout">
+          <span class="mini-label">OCCUPANCY</span>
+          <span class="mini-value">9 / 12 SLOTS</span>
+        </div>
+        <mat-progress-bar class="mini-progress" mode="determinate" value="75"></mat-progress-bar>
+      </div>
+
+      <div class="hiw-visual-box">
+        <div class="hiw-visual-title">System Performance</div>
+        <div class="hiw-metrics">
+          <div class="hiw-metric">
+            <div class="hiw-metric-num">2–4</div>
+            <div class="hiw-metric-label">Min Retrieval</div>
+          </div>
+          <div class="hiw-metric">
+            <div class="hiw-metric-num">10x</div>
+            <div class="hiw-metric-label">Land Efficiency</div>
+          </div>
+          <div class="hiw-metric">
+            <div class="hiw-metric-num">60</div>
+            <div class="hiw-metric-label">Day Install</div>
+          </div>
+          <div class="hiw-metric">
+            <div class="hiw-metric-num">24/7</div>
+            <div class="hiw-metric-label">Guarded</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hiw-visual-box">
+        <div class="hiw-visual-title">App — Quick Actions</div>
+        <div class="app-status">
+          <div class="app-status-label">VEHICLE STATUS</div>
+          <div class="app-status-row">
+            <span class="app-status-dot"></span>
+            <span class="app-status-text">SAFE · Slot 7B · Tower 2</span>
+          </div>
+        </div>
+        <div class="hiw-app-strip">
+          <div class="hiw-app-btn active-btn">🚗 Pickup</div>
+          <div class="hiw-app-btn">🅿 Drop</div>
+          <div class="hiw-app-btn">📋 History</div>
+        </div>
+      </div>
+
+      <div class="hiw-cta">
+        <div class="hiw-cta-head">REGISTER NOW</div>
+        <p class="hiw-cta-desc">
+          Be among the first Bengaluru subscribers. Early members get priority slot allocation.
+        </p>
+        <button mat-button class="btn-primary cta-btn" (click)="$event.preventDefault()">Get Early Access →</button>
+      </div>
+    </div>
+  </div>
+</section>

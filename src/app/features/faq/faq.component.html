@@ -1,0 +1,15 @@
+<section class="faq" id="faq">
+  <div class="section-label">Frequently Asked Questions</div>
+  <h2 class="section-title">GOT QUESTIONS?<br>WE HAVE ANSWERS.</h2>
+  <div class="faq-grid">
+    <div class="faq-list">
+      @for (item of faq.faqs(); track item.id) {
+        <app-faq-item [item]="item"></app-faq-item>
+      }
+    </div>
+    <div class="faq-cta">
+      <h3>STILL HAVE QUESTIONS?</h3>
+      <a href="#contact" class="btn-primary" (click)="$event.preventDefault()">Contact Us →</a>
+    </div>
+  </div>
+</section>

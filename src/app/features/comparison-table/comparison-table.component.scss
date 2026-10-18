@@ -1,0 +1,56 @@
+.comparison-table {
+  padding: 4rem 1.5rem;
+  color: #f5f3ee;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.vs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  color: #f5f3ee;
+}
+
+.vs-table th {
+  padding: 1.25rem;
+  text-align: left;
+  font-weight: 700;
+  color: #e8ff00;
+  border-bottom: 2px solid rgba(232, 255, 0, 0.2);
+  background: rgba(232, 255, 0, 0.08);
+}
+
+.vs-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(232, 255, 0, 0.05);
+}
+
+.vs-table td.feature {
+  color: rgba(245, 243, 238, 0.9);
+  font-weight: 500;
+}
+
+.vs-table td.vertipark {
+  text-align: center;
+  color: #00e5a0;
+  font-weight: 600;
+}
+
+.vs-table td.covered {
+  text-align: center;
+  color: rgba(245, 243, 238, 0.55);
+}
+
+.vs-table td.street {
+  text-align: center;
+  font-weight: 600;
+}
+
+@media (min-width: 900px) {
+  .comparison-table {
+    padding: 5rem 4%;
+  }
+}

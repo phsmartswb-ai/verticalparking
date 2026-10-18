@@ -1,0 +1,16 @@
+<section class="security" style="background: #1e2a38">
+  <div class="section-label">Peace of Mind Guaranteed</div>
+  <h2 class="section-title">YOUR CAR IS SAFER<br>WITH VERTIPARK.</h2>
+  <div class="security-grid">
+    @for (card of cards; track card.title) {
+      <div class="security-card mat-elevation-z2" [style.border-color]="card.color + '33'" [style.background]="card.color + '0d'">
+        <div class="card-icon"></div>
+        <h3 class="card-title" [style.color]="card.color">{{ card.title }}</h3>
+        <p class="card-text">{{ card.text }}</p>
+        @if (card.badge) {
+          <div class="card-badge" [style.color]="card.color">✓ {{ card.badge }}</div>
+        }
+      </div>
+    }
+  </div>
+</section>

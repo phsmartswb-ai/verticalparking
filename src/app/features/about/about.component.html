@@ -1,0 +1,30 @@
+<section class="about" id="about">
+  <div class="section-label">About Vertipark</div>
+  <h2 class="section-title">BORN FROM INDIA'S<br>PARKING CRISIS.</h2>
+  <div class="about-grid">
+    <div class="about-body">
+      @for (p of paras; track $index) {
+        <p [innerHTML]="p"></p>
+      }
+      <div class="about-values">
+        @for (item of values; track item.title) {
+          <div class="value-item">
+            <div class="value-icon">{{ item.icon }}</div>
+            <div class="value-title">{{ item.title }}</div>
+            <div class="value-desc">{{ item.desc }}</div>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="about-stats">
+      <div class="about-stat-grid">
+        @for (stat of stats; track stat.num) {
+          <div class="about-stat-card">
+            <div class="about-stat-num" [style.font-size]="stat.numSize">{{ stat.num }}</div>
+            <div class="about-stat-label">{{ stat.label }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

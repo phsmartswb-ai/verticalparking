@@ -1,0 +1,79 @@
+<section class="contact" id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-title">CONTACT<br>VERTIPARK.</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p class="contact-intro">
+        Whether you want to park your car, partner your land, or just learn more — we'd love to hear from you.
+      </p>
+      @for (item of contactItems; track item.label) {
+        <div class="contact-item">
+          <div class="contact-icon">{{ item.icon }}</div>
+          <div>
+            <div class="contact-item-label">{{ item.label }}</div>
+            <div class="contact-item-val">{{ item.value }}</div>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="contact-form-wrap">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Name *</mat-label>
+            <input matInput formControlName="name" placeholder="Your Name" />
+            <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">Name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Phone Number *</mat-label>
+            <input matInput formControlName="phone" placeholder="+91 98765 43210" />
+            <mat-error *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">Phone is required</mat-error>
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Email Address (Optional)</mat-label>
+          <input matInput formControlName="email" placeholder="you@example.com" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>I'm Interested In *</mat-label>
+          <mat-select formControlName="interest">
+            <mat-option value="">Select an option...</mat-option>
+            @for (interest of interests; track interest) {
+              <mat-option [value]="interest">{{ interest }}</mat-option>
+            }
+          </mat-select>
+          <mat-error *ngIf="form.get('interest')?.invalid && form.get('interest')?.touched">Please select an option</mat-error>
+        </mat-form-field>
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city">
+              @for (city of cities; track city) {
+                <mat-option [value]="city">{{ city }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Bangalore Location</mat-label>
+            <mat-select formControlName="location">
+              <mat-option value="">Select a location with parking issues...</mat-option>
+              @for (loc of locations; track loc) {
+                <mat-option [value]="loc">{{ loc }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Message (Optional)</mat-label>
+          <textarea matInput formControlName="message" placeholder="Tell us more about your requirement..."></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="button" class="form-submit" (click)="onSubmit()">
+          Send Message →
+        </button>
+      </form>
+      <div class="form-success">
+        ✅ Thank you! We'll get back to you within 24 hours.
+      </div>
+    </div>
+  </div>
+</section>

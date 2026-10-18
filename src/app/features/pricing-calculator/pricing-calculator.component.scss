@@ -1,0 +1,123 @@
+.section-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #e8ff00;
+  margin: 0 0 0.75rem;
+  display: block;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  margin: 0 0 1.5rem;
+  letter-spacing: 1px;
+  color: #f5f3ee;
+}
+
+.section-desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(245, 243, 238, 0.8);
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.calculator {
+  padding: 4rem 1.5rem;
+  color: #f5f3ee;
+}
+
+.calc-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #0a0a0a;
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(232, 255, 0, 0.1);
+}
+
+.calc-group {
+  margin-bottom: 2rem;
+}
+
+.calc-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #e8ff00;
+  font-family: 'Syne', sans-serif;
+}
+
+.calc-select {
+  width: 100%;
+  font-size: 1rem;
+}
+
+.calc-result {
+  background: rgba(232, 255, 0, 0.08);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid rgba(232, 255, 0, 0.2);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.result-label {
+  font-size: 0.9rem;
+  color: rgba(245, 243, 238, 0.6);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.result-plan {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #e8ff00;
+  margin: 0 0 0.5rem;
+  font-family: 'Syne', sans-serif;
+}
+
+.result-details {
+  font-size: 0.95rem;
+  color: rgba(245, 243, 238, 0.7);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.btn-link {
+  display: inline-block;
+  text-decoration: none;
+  color: #f5f3ee;
+  font-weight: 600;
+  border-bottom: 1px solid #e8ff00;
+  padding-bottom: 2px;
+
+  &:hover {
+    color: #e8ff00;
+  }
+}
+
+.calc-tip {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(91, 136, 255, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #5b8fff;
+  font-size: 0.85rem;
+  color: rgba(245, 243, 238, 0.8);
+}
+
+.calc-tip strong {
+  color: #5b8fff;
+}
+
+@media (min-width: 900px) {
+  .calculator {
+    padding: 5rem 4%;
+  }
+}

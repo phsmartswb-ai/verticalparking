@@ -1,0 +1,29 @@
+<section class="problem" id="problem">
+  <div class="section-label">The Urban Reality</div>
+  <h2 class="section-title">YOUR CAR DESERVES<br>BETTER THAN THIS.</h2>
+  <div class="problem-grid">
+    <div class="problem-items">
+      @for (item of items; track item.title) {
+        <div class="problem-item mat-elevation-z2">
+          <div class="problem-icon">{{ item.icon }}</div>
+          <div class="problem-text">
+            <h4>{{ item.title }}</h4>
+            <p class="problem-desc">{{ item.text }}</p>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="city-stat-box mat-elevation-z4">
+      <div class="big-stat">{{ stat.num }}</div>
+      <div class="big-stat-desc">{{ stat.desc }}</div>
+      <p class="city-detail" [innerHTML]="stat.detail"></p>
+      <div class="city-tags">
+        @for (tag of stat.tags; track tag.label) {
+          <span class="city-tag" [style.background]="tag.color && 'rgba(232,255,0,0.18)'" [style.border-color]="tag.color" [style.color]="tag.color">
+            {{ tag.label }}
+          </span>
+        }
+      </div>
+    </div>
+  </div>
+</section>

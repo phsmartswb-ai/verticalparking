@@ -1,0 +1,19 @@
+<div class="hiw-step">
+  <div class="hiw-step-spine">
+    <div class="hiw-node" [class.active]="step().num === '4'">
+      <span class="hiw-node-icon">{{ step().icon }}</span>
+      <div class="hiw-node-num">{{ step().num }}</div>
+    </div>
+    <div class="hiw-step-bar"></div>
+  </div>
+  <div class="hiw-step-body">
+    <div class="hiw-step-tag">{{ step().tag }}</div>
+    <div class="hiw-step-title">{{ step().title }}</div>
+    <p class="hiw-step-desc">{{ step().desc }}</p>
+    <div class="hiw-step-details">
+      @for (chip of step().chips; track chip) {
+        <span class="hiw-detail-chip">{{ chip }}</span>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+.faq {
+  padding: 5rem 1.5rem;
+  color: #f5f3ee;
+}
+
+.faq-grid {
+  max-width: 1000px;
+  margin: 2rem auto 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+::ng-deep mat-expansion-panel {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 8px !important;
+  margin: 0 !important;
+}
+
+::ng-deep mat-expansion-panel-header {
+  height: auto !important;
+  padding: 1rem 1.25rem !important;
+  border-radius: 8px !important;
+}
+
+::ng-deep mat-panel-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f5f3ee !important;
+}
+
+::ng-deep mat-panel-description {
+  font-size: 1.2rem;
+  color: #e8ff00 !important;
+  font-weight: 700;
+  margin-left: auto;
+}
+
+::ng-deep .mat-mdc-expansion-panel-body {
+  padding: 0 1.25rem 1.25rem !important;
+}
+
+.faq-answer {
+  font-size: 0.925rem;
+  line-height: 1.7;
+  color: rgba(245, 243, 238, 0.85);
+  margin: 0;
+}
+
+.faq-cta {
+  text-align: center;
+}
+
+.faq-cta h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #f5f3ee;
+  margin: 0 0 0.75rem;
+}
+
+.btn-primary {
+  background: #e8ff00 !important;
+  color: #0a0a0a !important;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 8px !important;
+  padding: 0.9rem 1.75rem !important;
+  text-decoration: none;
+  font-size: 1rem;
+
+  &:hover {
+    background: #d4ff00 !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .faq-grid {
+    grid-template-columns: 1fr 340px;
+  }
+  .faq {
+    padding: 6rem 4%;
+  }
+}

@@ -1,0 +1,69 @@
+.zone-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  color: #e8ff00;
+  margin: 0 0 0.5rem;
+}
+
+.zone-desc {
+  font-size: 0.95rem;
+  color: rgba(245, 243, 238, 0.7);
+  margin: 0 0 1.5rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.zone-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: #f5f3ee;
+}
+
+.zone-table th {
+  text-align: left;
+  padding: 0.75rem;
+  font-weight: 600;
+  color: #f5f3ee;
+  border-bottom: 2px solid rgba(232, 255, 0, 0.2);
+}
+
+.zone-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(232, 255, 0, 0.05);
+  color: rgba(245, 243, 238, 0.85);
+}
+
+.zone-table td:nth-child(3),
+.zone-table td:nth-child(4) {
+  text-align: center;
+}
+
+.tier-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tier-badge[style*="#ff6b35"] {
+  background: rgba(255, 107, 53, 0.2) !important;
+  color: #ff6b35 !important;
+}
+
+.tier-badge[style*="#5b8fff"] {
+  background: rgba(91, 136, 255, 0.2) !important;
+  color: #5b8fff !important;
+}
+
+.tier-badge[style*="#e8ff00"] {
+  background: rgba(232, 255, 0, 0.2) !important;
+  color: #e8ff00 !important;
+}
+
+.tier-badge[style*="#a8a8ba"] {
+  background: rgba(122, 122, 154, 0.2) !important;
+  color: #a8a8ba !important;
+}

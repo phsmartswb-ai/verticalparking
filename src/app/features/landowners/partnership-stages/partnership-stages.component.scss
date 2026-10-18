@@ -1,0 +1,90 @@
+.partnership {
+  padding: 5rem 1.5rem;
+  color: #f5f3ee;
+}
+
+.stages-container {
+  max-width: 1000px;
+  margin: 2.5rem auto 0;
+  position: relative;
+}
+
+.stages-line {
+  position: absolute;
+  left: 44px;
+  top: 60px;
+  bottom: 60px;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(232, 255, 0, 0.35), transparent);
+}
+
+.stages-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.stage-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.stage-circle {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border: 2px solid rgba(232, 255, 0, 0.35);
+  border-radius: 50%;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stage-icon {
+  font-size: 1.35rem;
+  margin-bottom: 2px;
+}
+
+.stage-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e8ff00;
+}
+
+.stage-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+  color: #f5f3ee;
+}
+
+.stage-desc {
+  font-size: 0.925rem;
+  line-height: 1.65;
+  color: rgba(245, 243, 238, 0.8);
+  margin: 0 0 0.5rem;
+}
+
+.stage-timeframe {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e8ff00;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+@media (min-width: 900px) {
+  .stages-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .partnership {
+    padding: 6rem 4%;
+  }
+}

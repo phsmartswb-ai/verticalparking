@@ -1,65 +1,59 @@
-# Vertipark – Vertical Rotary Car Parking
+# Vertipark
 
-Marketing website for **Vertipark**, a vertical rotary car parking solution launching in Bengaluru. Built with vanilla HTML, CSS, and JavaScript.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
 
-## Repository
+## Development server
 
-- **GitHub:** [phsmartswb-ai/verticalparking](https://github.com/phsmartswb-ai/verticalparking)
-
-## Run locally
-
-Open `vertipark-Main.html` in a browser (same folder as `styles.css` and `images/`). No build step or server required.
+To start a local development server, run:
 
 ```bash
-# From project root, e.g. open in default browser (macOS)
-open vertipark-Main.html
+ng serve
 ```
 
-Or use any static file server:
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Code scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
 ```bash
-npx serve .
-# or: python3 -m http.server 8000
+ng generate component component-name
 ```
 
-## Deploy on Netlify
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-1. Connect this repo to Netlify (GitHub → Netlify).
-2. **Build settings:** leave **Build command** empty; **Publish directory** = `.` (or leave default).
-3. The repo includes `netlify.toml` so the site **root** (`/`) serves `vertipark-Main.html` automatically.
-4. Deploy. Your site will be live at `https://your-site-name.netlify.app`.
-
-## Project structure
-
-```
-.
-├── vertipark-Main.html   # Main landing page (entry point)
-├── styles.css            # All styles (extracted from inline CSS)
-├── images/               # Local images (hero, showcase, before/after, etc.)
-│   ├── hero-bg.jpg
-│   ├── showcase-bg.jpg
-│   ├── landowner-hero-bg.jpg
-│   ├── hero-visual.jpg
-│   ├── ba-before.jpg
-│   └── ba-after.jpg
-├── README.md
-└── .gitignore
+```bash
+ng generate --help
 ```
 
-## Features
+## Building
 
-- Single-page marketing site: hero, problem, how it works, plans, app preview, landowners, FAQ, contact, legal
-- Responsive layout (breakpoints at 900px and 600px)
-- Mobile hamburger menu, back-to-top button, cookie consent banner
-- SEO meta and Open Graph tags
-- Images from Unsplash & Pexels (free to use); stored locally in `images/`
+To build the project run:
 
-## Tech
+```bash
+ng build
+```
 
-- HTML5, CSS3 (custom properties, grid, flexbox)
-- Vanilla JavaScript (FAQ accordion, legal tabs, form submit, nav toggle)
-- Fonts: Google Fonts (Bebas Neue, Syne, DM Sans)
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## License
+## Running unit tests
 
-This project is **proprietary**. All rights reserved. It is not free to use. See [LICENSE](LICENSE) for full terms.
+To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -1,0 +1,30 @@
+<h3 class="zone-title">📍 Pricing Varies by Bengaluru Zone</h3>
+<p class="zone-desc">
+  Land costs differ across the city. Higher-demand areas support premium pricing.
+</p>
+<div class="table-wrap">
+  <table mat-table [dataSource]="rows" class="zone-table">
+    <ng-container matColumnDef="tier">
+      <th mat-header-cell *matHeaderCellDef>Zone</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="tier-badge" [style.background]="row.tierColor + '20'" [style.color]="row.tierColor">{{
+          row.tier
+        }}</span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="areas">
+      <th mat-header-cell *matHeaderCellDef>Areas</th>
+      <td mat-cell *matCellDef="let row">{{ row.areas }}</td>
+    </ng-container>
+    <ng-container matColumnDef="monthly">
+      <th mat-header-cell *matHeaderCellDef>Monthly</th>
+      <td mat-cell *matCellDef="let row">{{ row.monthly }}</td>
+    </ng-container>
+    <ng-container matColumnDef="quarterly">
+      <th mat-header-cell *matHeaderCellDef>Quarterly</th>
+      <td mat-cell *matCellDef="let row">{{ row.quarterly }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
